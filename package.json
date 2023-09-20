@@ -1,16 +1,28 @@
 {
-  "name": "tab-human",
+  "name": "tab-helper",
   "version": "1.0.0",
   "description": "A basic CRUD app to write and save guitar tabs",
   "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js" 
+    "start": "node server/server.js",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "Thomas Hales III",
   "license": "ISC",
   "devDependencies": {
-    "express": "^4.18.2"
+    "@babel/core": "^7.22.20",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
+    "babel-loader": "^9.1.3",
+    "express": "^4.18.2",
+    "html-webpack-plugin": "^5.5.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
