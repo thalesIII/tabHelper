@@ -1,5 +1,6 @@
 import React from "react";
 import TabEditor from "./TabEditor.jsx";
+import TabList from "./TabList.jsx";
 
 import { useDispatch, useSelector } from "react-redux";
 import { openEditor, openTabList } from "../../reducers/editorReducer.js";
@@ -9,7 +10,7 @@ const MainContainer = () => {
     const tablistIsOpen = useSelector(state => state.editor.tablistIsOpen)
     let bottom = <br/>;
     if(editorIsOpen) bottom = <TabEditor/>;
-    if(tablistIsOpen) bottom = <p> tablist :O </p>; //<TabList/>;
+    if(tablistIsOpen) bottom = <TabList/>;
     
 
     return (

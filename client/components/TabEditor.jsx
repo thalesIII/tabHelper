@@ -14,19 +14,24 @@ const TabEditor = (props) => {
         dispatch(changeCurrentTab(e.target.value));
     }
 
-    const tabSave = (e) => {
+    const tabSave = async (e) => {
         const name = document.getElementById('tabName').value;
-        const tab = document.getElementById('tabWriter').value;
+        const tab = currTab;
+        //console.log('front end...', name, tab);
 
-        fetch('/tabs', {
-            method: 'POST',
-            body: {
-                name: name, 
-                song: tab
-            }
-        })
-        .then(data => console.log(data))
-        //update state upon successful fetch request
+        try{
+            await fetch('/tabs', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json" 
+                },
+                body: JSON.stringify({"name": name, "song": tab})
+            })
+        } catch(err) {
+            console.log('Error posting to server... ', err);
+            return;
+        }
+        //update state upon successful fetch request? not necessary right now
     }
 
     return(

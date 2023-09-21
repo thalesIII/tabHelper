@@ -5,6 +5,8 @@ const tabRouter = require('../routers/tabRouter.js')
 const app = express();
 const PORT = 3000; 
 
+app.use(express.json());
+
 app.use('/build', express.static(path.join(__dirname, '../build')));
 app.use('/stylesheets', express.static(path.join(__dirname, '../client/stylesheets')));
 
