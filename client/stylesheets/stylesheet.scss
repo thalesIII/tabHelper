@@ -1,7 +1,19 @@
+
+
 body {
     background-color: lightgrey;
 }
 
-textarea, input {
-    background-color: ;
+textarea, input, button {
+    background-color: rgb(240, 238, 210);
+}
+
+textarea {
+    font-size: 1.75em;
+}
+
+.editorBottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
