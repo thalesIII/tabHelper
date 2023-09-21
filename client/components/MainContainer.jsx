@@ -5,18 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { openEditor, openTabList } from "../../reducers/editorReducer.js";
 
 const MainContainer = () => {
-    const { isOpen } = useSelector(state => state.editor.editorIsOpen);
-    const editor = <br/>;
-    if(isOpen) {
-        editor = <TabEditor/>
-    }
+    const editorIsOpen = useSelector(state => state.editor.editorIsOpen);
+    const tablistIsOpen = useSelector(state => state.editor.tablistIsOpen)
+    let bottom = <br/>;
+    if(editorIsOpen) bottom = <TabEditor/>;
+    if(tablistIsOpen) bottom = <p> tablist :O </p>; //<TabList/>;
+    
 
     return (
         <div>
             <h2> Tab Helper </h2>
-            <p> APP BY THOMAS HALES </p>
+            <p> Quickly save/store guitar tabs  </p>
             <MainMenu />
-            {editor}
+            {bottom}
         </div>
     )
 }
@@ -27,13 +28,16 @@ const MainMenu = (props) => {
         console.log('dispatching openEditor...')
         return dispatch(openEditor());
     }
-    const tabListDispatch = () => {}
+    const tabListDispatch = () => {
+        console.log('dispatching openTabList...')
+        return dispatch(openTabList());
+    }
 
     return (
         <div>
             <hr/>
             <button onClick={editorDispatch}> Create </button>
-            <button onClick={() => console.log('button click works')}> Saved Tabs </button>
+            <button onClick={tabListDispatch}> Saved Tabs </button>
             <hr/>
         </div>
     )

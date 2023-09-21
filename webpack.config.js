@@ -7,6 +7,7 @@ module.exports = {
     output: {
         filename: 'tab-build.js',
         path: path.join(__dirname, '/build'),
+        publicPath: '/build'
     },
     
     module: {
@@ -31,14 +32,14 @@ module.exports = {
         ],
     },
 
-    // devServer: {
-    //     host: 'localhost',
-    //     port: 8080,
-    //     hot: true,
-    //     static: {}
-    // },
+    //for development mode
+    devServer: {  // runs with: npx webpack serve
+        host: 'localhost',
+        port: 8080,
+        hot: true,
+        static: {
+            directory: path.resolve(__dirname, 'client')
+        }
+    },
     
-    // plugins: [new htmlWebpackPlugin({
-    //     template: 'client/index.html'
-    // })]
 }
