@@ -13,8 +13,8 @@ const TabList = (props) => {
                         <SongCard props={song} key={song._id}/>
                     );
                 }
-                console.log('songs...', newSongs);
-                setSongs([...newSongs]);
+                //console.log('songs...', newSongs);
+                setSongs(newSongs);
             })
             .catch(err => console.log('ERROR fetching songs: ', err))
     }   
@@ -23,6 +23,7 @@ const TabList = (props) => {
     useEffect(() => {
         getTabList();
     }, []);
+    console.log('Page loaded --> songs: ', songs);
 
     return(
         <div>

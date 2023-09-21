@@ -1,7 +1,12 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Maitree:wght@500&family=Proza+Libre:ital@1&display=swap');
 
 body {
     background-color: lightgrey;
+    font-family: Maitree
+}
+
+button {
+    font-family: Proza Libre;
 }
 
 textarea, input, button {
@@ -16,4 +21,8 @@ textarea {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+SongCard {
+    background-color: white;
 }
