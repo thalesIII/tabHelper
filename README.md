@@ -18,3 +18,11 @@ Create and save tabs to a database.
 The throes of websocket, necessitates a complicated UI
 6. What are the stretch goals?
 Quickly share your tabs with others / Include options for regular sheet music
+
+December 11, 2023
+DONE: 
+    tab list renders to page
+TODO: 
+    finish selector screen 
+    revamp editor
+

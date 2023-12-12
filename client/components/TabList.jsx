@@ -9,9 +9,7 @@ const TabList = (props) => {
             .then((data) => {
                 //console.log('response...', data);
                 for(let song of data){
-                    newSongs.push(
-                        <SongCard props={song} key={song._id}/>
-                    );
+                    newSongs.push(song);
                 }
                 //console.log('songs...', newSongs);
                 setSongs(newSongs);
@@ -25,10 +23,17 @@ const TabList = (props) => {
     }, []);
     console.log('Page loaded --> songs: ', songs);
 
+    const tabs = [];
+    for(const song of songs){
+        tabs.push(
+            <SongCard song={song} key={song._id}/>
+        );
+    }
+
     return(
         <div>
             <h4> Saved Tabs: </h4>
-            {songs}
+            {tabs}
         </div>
     )
 }

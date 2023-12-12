@@ -1,12 +1,12 @@
 import React from "react";
 
-const SongCard = (props) => {
+const SongCard = ({ song }) => {
     //props: name, song, key=mongoID
     
     return(
         <div className='songcard'>
-            <h5> {props.name} </h5>
-            <p className='tabDisplay'> {props.song} </p>
+            <h5> {song.name} </h5>
+            <p className='tabDisplay'> {song.song} </p>
         </div>
     )
 }
