@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Maitree:wght@500&family=Proza+Libre:ital@1&display=swap');
 
+$paleyellow: rgb(240, 238, 210);
+
 body {
     background-color: lightgrey;
     font-family: Maitree
@@ -10,7 +12,7 @@ button {
 }
 
 textarea, input, button {
-    background-color: rgb(240, 238, 210);
+    background-color: $paleyellow;
 }
 
 textarea {
@@ -24,5 +26,18 @@ textarea {
 }
 
 .songCard {
-    background-color: rgb(101, 101, 100);
+    width: 30vw;
+    background-color: $paleyellow;
+    border: 1px solid black;
+    .del {
+        background-color: rgb(247, 205, 205);
+    }
+    .edit {
+        background-color: lightgrey;
+    }
+
+}
+
+.songCardName {
+    width: 15vw;
 }

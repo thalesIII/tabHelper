@@ -14,9 +14,13 @@ const SongCard = ({ song }) => {
     }
     
     return(
-        <div className='songCard'>
-                <td className='songCardTitle'/> <h5> {song.name} </h5>
-                <td/> <p className='tabDisplay'> {strings} </p>
+        <div>
+            <table className='songCard'> <tr>
+                <td /> <p> {song.name} </p>
+                <td /> <button className='edit'> Editor </button> <br/> <button className='del'> Delete </button>
+            </tr><tr>
+                <td className='tabDisplay'/> <p> {strings} </p>
+            </tr></table>
         </div>
     )
 }
