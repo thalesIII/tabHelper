@@ -23,6 +23,6 @@ December 11, 2023
 DONE: 
     tab list renders to page
 TODO: 
-    finish selector screen 
+    finish selector screen (songCard.jsx)
     revamp editor
 

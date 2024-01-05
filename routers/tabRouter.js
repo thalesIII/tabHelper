@@ -21,10 +21,10 @@ router.post('/', async (req, res, next) => {  //doesn't work on dev-server
 })
 
 router.get('/list', async (req, res, next) => {
-    console.log('recieved get req to /tabs/list...');
+    // console.log('recieved get req to /tabs/list...');
 
     try{
-        console.log('querying (find) ...')
+        // console.log('querying (find) ...')
         const list = await Tab.find({}, 'name song');
         //console.log('server-side query result... ', list);
         res.setHeader('Content-Type', 'application/json');
