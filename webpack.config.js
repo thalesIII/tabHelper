@@ -3,7 +3,7 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './client/index.js', //entry point of the app
+    entry: './client/index.js',
     output: {
         filename: 'tab-build.js',
         path: path.join(__dirname, '/build'),
@@ -32,15 +32,16 @@ module.exports = {
         ],
     },
 
-    //for development mode
-    devServer: {  // runs with: npx webpack serve
+    devServer: {  
         host: 'localhost',
         port: 8080,
         hot: true,
         open: true,
         static: {
             directory: path.resolve(__dirname, 'client')
+        },
+        proxy: {
+            '/': 'http://localhost:3000'
         }
     },
-    
 }

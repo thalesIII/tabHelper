@@ -4,7 +4,7 @@ import SongCard from "./SongCard.jsx";
 const TabList = (props) => {
     const getTabList = () => {
         const newSongs = [];
-        fetch('/tabs/list')
+        fetch('tabs/list')
             .then(promise => promise.json())
             .then((data) => {
                 //console.log('response...', data);
