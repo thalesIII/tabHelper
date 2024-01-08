@@ -41,9 +41,9 @@ router.get('/list', async (req, res, next) => {
 })
 
 router.delete('/', async (req, res, next) => {
-    const { name } = req.body;
+    const { id } = req.body;
     try{
-        await Tab.findOneAndDelete({name: name}, 'name song');
+        await Tab.deleteOne({_id: id});
     } catch(err) {
         return next({log: 'ERROR while deleting tab from Mongo!', message: {err: err}});
     }

@@ -29,7 +29,7 @@ const SongCard = ({ song, getTabList }) => {
             headers: {
                 "Content-Type": "application/json" 
             },
-            body: JSON.stringify(song.name)
+            body: JSON.stringify({id: song._id})
         })
             .then(getTabList());
     }
@@ -45,7 +45,9 @@ const SongCard = ({ song, getTabList }) => {
                     <button className='del' onClick={deleteTab}> Delete </button>
                 </div>
             </div>
-            <p className="tabDisplay"> {strings} </p>
+            <div className="tabDisplay">
+                {strings}
+            </div>
         </div>
     )
 }
