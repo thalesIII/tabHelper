@@ -25,19 +25,36 @@ textarea {
     justify-content: space-between;
 }
 
+.songList {
+    display: grid;
+    grid-template-columns: 30vw 30vw 30vw;
+    justify-content: space-around;
+}
+
 .songCard {
-    width: 30vw;
     background-color: $paleyellow;
     border: 1px solid black;
+    margin: 3px;
+}
+
+.songHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 3px;
+    .listButtons {
+        display: flex;
+        flex-direction: column;
+        align-items: right;
+    }
     .del {
         background-color: rgb(247, 205, 205);
     }
     .edit {
         background-color: lightgrey;
     }
-
 }
 
-.songCardName {
-    width: 15vw;
+.tabDisplay {
+    margin: 3px 3vw;
 }

@@ -33,7 +33,7 @@ const TabList = (props) => {
     return(
         <div>
             <h4> Saved Tabs: </h4>
-            {tabs}
+            <div className="songList"> {tabs} </div>
         </div>
     )
 }
