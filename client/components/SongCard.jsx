@@ -5,7 +5,6 @@ import { openEditor } from "../../reducers/editorReducer";
 const SongCard = ({ song, getTabList }) => {
     const dispatch = useDispatch();
 
-    //props: name, song, key=mongoID
     const PREVIEWED_BEATS = 50;
 
     const strings = [];

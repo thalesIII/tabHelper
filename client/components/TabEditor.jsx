@@ -11,14 +11,12 @@ const TabEditor = (props) => {
     const currTabName = useSelector(state => state.editor.currentTabName);
 
     const tabChange = (e) => {
-        //event.target.value holds the current tab
         dispatch(changeCurrentTab(e.target.value));
     }
 
     const tabSave = async (e) => {
         const name = document.getElementById('tabName').value;
         const tab = currTab;
-        //console.log('front end...', name, tab);
 
         try{
             await fetch('/tabs', {
@@ -32,7 +30,6 @@ const TabEditor = (props) => {
             console.log('Error posting to server... ', err);
             return;
         }
-        //update state upon successful fetch request? not necessary right now
     }
     const titleHolder = <input id='tabName' placeholder="Song name..."/>;
     return(

@@ -5,9 +5,7 @@ const Tab = require('../models/tabModels.js');
 
 const tabQuery = async () => {
     try{
-        // console.log('querying (find) ...')
         const list = await Tab.find({}, 'name song');
-        // console.log('server-side query result... ', list);
         return list;
     } catch(err) {
         return {log: 'ERROR while fetching tabs!', message: {err: err}};
@@ -32,9 +30,7 @@ router.post('/', async (req, res, next) => {
 })
 
 router.get('/list', async (req, res, next) => {
-    // console.log('recieved get req to /tabs/list...');
     const result = await tabQuery();
-    // console.log('sending back:', result);
     return (!result.log
         ? res.status(200).json(result)
         : next(result));
