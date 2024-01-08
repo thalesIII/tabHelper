@@ -3,26 +3,33 @@ import { createAction, createReducer } from '@reduxjs/toolkit';
 const openEditor = createAction('OPEN_EDITOR');
 const openTabList = createAction('OPEN_TABLIST');
 const changeCurrentTab = createAction('CHANGE_CURRENT_TAB');
-const extentCurrentTab = createAction('EXTEND_CURRENT_TAB');
+const extendCurrentTab = createAction('EXTEND_CURRENT_TAB');
 
+const defaultTab = `e <---------------------------------------------------------------------------------
+B <---------------------------------------------------------------------------------
+G <---------------------------------------------------------------------------------
+D <---------------------------------------------------------------------------------
+A <---------------------------------------------------------------------------------
+E <---------------------------------------------------------------------------------`;
 const initialState = {
     editorIsOpen: false,
     tablistIsOpen: false,
     currentTabName: '',
     currentTabSize: 85, // currentTabSize * 50 textarea cols
-    currentTab: 
-`e <---------------------------------------------------------------------------------
-B <---------------------------------------------------------------------------------
-G <---------------------------------------------------------------------------------
-D <---------------------------------------------------------------------------------
-A <---------------------------------------------------------------------------------
-E <---------------------------------------------------------------------------------`
+    currentTab: defaultTab
 }
 
 const editorReducer = createReducer(initialState, (builder) => {
     builder
         .addCase(openEditor, (state, action) => { 
             console.log('opening editor...');
+            if (action.payload) {
+                state.currentTabName = action.payload.name;
+                state.currentTab = action.payload.song;
+            }else{
+                state.currentTabName = '';
+                state.currentTab = defaultTab;
+            }
             state.editorIsOpen = true;
             state.tablistIsOpen = false;
         })
@@ -57,5 +64,5 @@ const editorReducer = createReducer(initialState, (builder) => {
         .addDefaultCase((state, action) => {})
 });
 
-export { openEditor, openTabList, changeCurrentTab, extentCurrentTab };
+export { openEditor, openTabList, changeCurrentTab, extendCurrentTab };
 export default editorReducer;

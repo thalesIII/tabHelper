@@ -3,7 +3,7 @@ import TabEditor from "./TabEditor.jsx";
 import TabList from "./TabList.jsx";
 
 import { useDispatch, useSelector } from "react-redux";
-import { openEditor, openTabList } from "../../reducers/editorReducer.js";
+import { changeCurrentTab, openEditor, openTabList } from "../../reducers/editorReducer.js";
 
 const MainContainer = () => {
     const editorIsOpen = useSelector(state => state.editor.editorIsOpen);
@@ -26,8 +26,8 @@ const MainContainer = () => {
 const MainMenu = (props) => {
     const dispatch = useDispatch();
     const editorDispatch = () => {
-        console.log('dispatching openEditor...')
-        return dispatch(openEditor());
+        console.log('dispatching openEditor...');
+        return dispatch(openEditor(undefined));
     }
     const tabListDispatch = () => {
         console.log('dispatching openTabList...')

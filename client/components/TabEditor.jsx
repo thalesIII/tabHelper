@@ -8,6 +8,7 @@ const TabEditor = (props) => {
 
     const cols = useSelector(state => state.editor.currentTabSize);
     const currTab = useSelector(state => state.editor.currentTab);
+    const currTabName = useSelector(state => state.editor.currentTabName);
 
     const tabChange = (e) => {
         //event.target.value holds the current tab
@@ -33,10 +34,11 @@ const TabEditor = (props) => {
         }
         //update state upon successful fetch request? not necessary right now
     }
-
+    const titleHolder = <input id='tabName' placeholder="Song name..."/>;
     return(
         <div>
-            <input id='tabName' placeholder="Song name..."/> <br/>
+            {currTabName.length ? currTabName : titleHolder}
+            <br/>
             <textarea id='tabWriter' wrap='off' rows={6} cols={cols} 
             defaultValue={currTab} onChange={tabChange}/>
             <div>

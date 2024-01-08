@@ -7,13 +7,14 @@ const TabList = (props) => {
         fetch('tabs/list')
             .then(promise => promise.json())
             .then((data) => {
-                //console.log('response...', data);
+                // console.log('response...', data);
                 for(let song of data){
                     newSongs.push(song);
                 }
                 //console.log('songs...', newSongs);
                 setSongs(newSongs);
             })
+            // .then(() => console.log('then chain finished'))
             .catch(err => console.log('ERROR fetching songs: ', err))
     }   
 
@@ -26,7 +27,7 @@ const TabList = (props) => {
     const tabs = [];
     for(const song of songs){
         tabs.push(
-            <SongCard song={song} key={song._id}/>
+            <SongCard song={song} key={song._id} getTabList={getTabList}/>
         );
     }
 

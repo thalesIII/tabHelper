@@ -1,6 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { openEditor } from "../../reducers/editorReducer";
 
-const SongCard = ({ song }) => {
+const SongCard = ({ song, getTabList }) => {
+    const dispatch = useDispatch();
+
     //props: name, song, key=mongoID
     const PREVIEWED_BEATS = 50;
 
@@ -15,6 +19,21 @@ const SongCard = ({ song }) => {
         )
     }
     
+    const editorDispatch = (e) => {
+        console.log('dispatching openEditor...')
+        return dispatch(openEditor(song));
+    }
+    const deleteTab = (e) => {
+        fetch('/tabs', {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json" 
+            },
+            body: JSON.stringify(song.name)
+        })
+            .then(getTabList());
+    }
+
     return(
         <div className='songCard'>
             <div className="songHeader">
@@ -22,8 +41,8 @@ const SongCard = ({ song }) => {
                     <p> {song.name} </p>
                 </div>
                 <div className="listButtons">
-                    <button className='edit'> Edit </button> 
-                    <button className='del'> Delete </button>
+                    <button className='edit' onClick={editorDispatch}> Edit </button> 
+                    <button className='del' onClick={deleteTab}> Delete </button>
                 </div>
             </div>
             <p className="tabDisplay"> {strings} </p>
