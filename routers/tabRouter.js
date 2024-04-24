@@ -30,10 +30,35 @@ router.post('/', async (req, res, next) => {
 })
 
 router.get('/list', async (req, res, next) => {
+    console.log('finding your tabs')
     const result = await tabQuery();
     return (!result.log
         ? res.status(200).json(result)
         : next(result));
+})
+
+router.get('/api', async (req, res, next) => {
+    console.log('fetching from ultimate-guitar')
+    const requestTab = async () => {
+        // 'https://tabs.ultimate-guitar.com/tab/led-zeppelin/stairway-to-heaven-tabs-9488'
+        const t = await fetch('https:tabs.ultimate-guitar.com/tab/led-zeppelin/stairway-to-heaven-tabs-9488', {
+            method: 'GET',
+            mode: 'no-cors'
+        });
+        // const tab = await t.json();
+        const html = await t.text();
+
+        console.log('response: ', html)
+        return html;
+    }
+    try{
+        const rawTab = await requestTab();
+        console.log('success');
+        res.status(200).send(rawTab);
+    } catch (err) {
+        console.log('error when fetching tab')
+        return next(err);
+    }
 })
 
 router.delete('/', async (req, res, next) => {

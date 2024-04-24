@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import TabEditor from "./TabEditor.jsx";
 import TabList from "./TabList.jsx";
 
@@ -11,7 +11,22 @@ const MainContainer = () => {
     let bottom = <br/>;
     if(editorIsOpen) bottom = <TabEditor/>;
     if(tablistIsOpen) bottom = <TabList/>;
-    
+
+    const [tab, setTab] = useState({});
+    useEffect(() => {
+        const requestTab = async () => {
+            try {
+                const t = await fetch('http://localhost:3000/tabs/api', {
+                    method: 'GET',
+                }); 
+                console.log('response: ', t)
+                setTab(t);
+            } catch (err) {
+                console.log('error occured while requesting tab info')
+            }
+        }
+        requestTab();
+    }, [])
 
     return (
         <div>
@@ -19,6 +34,7 @@ const MainContainer = () => {
             <p> Quickly save/store guitar tabs  </p>
             <MainMenu />
             {bottom}
+            {JSON.stringify(tab)} {/* testing fetch API to ultimate-guitar */}
         </div>
     )
 }
