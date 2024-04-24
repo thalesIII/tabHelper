@@ -41,9 +41,11 @@ module.exports = {
             directory: path.resolve(__dirname, 'client')
         },
         proxy: {
-            '/': 'http://localhost:3000',
-            secure: false,
-            changeOrigin: true
+            '/': {
+                target: 'http://localhost:3000',
+                secure: false,
+                changeOrigin: true
+            }
         }
     },
 }
