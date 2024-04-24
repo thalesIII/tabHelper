@@ -42,9 +42,9 @@ router.get('/api',
     tabController.fetchTab, 
     tabController.parseTab, 
     async (req, res, next) => {
-    const result = 'made it' //change...
-    res.status(200).json(result)
-})
+        res.status(200).json(res.locals.result)
+    }
+)
 
 router.delete('/', async (req, res, next) => {
     const { id } = req.body;

@@ -1,3 +1,5 @@
+const cheerio = require('cheerio');
+
 module.exports = {
     fetchTab: async (req, res, next) => {
         console.log('fetching from ultimate-guitar')
@@ -21,7 +23,25 @@ module.exports = {
     },
 
     parseTab: (req, res, next) => {
-        console.log('in parseTab... ', res.locals.rawTab)
+        const html = res.locals.rawTab;
+
+        const $ = cheerio.load(html);
+        const data = $('.js-store').data('content');
+
+        // extract tab data
+        const ptr = data.store.page.data;
+        const songName = ptr.tab.song_name;
+        const artistName = ptr.tab.artist_name;
+
+        const tab = ptr.tab_view.wiki_tab.content;
+
+        const responseData = {
+            songName,
+            artistName,
+            tab
+        };
+
+        res.locals.result = responseData;
         return next();
     }
 }
