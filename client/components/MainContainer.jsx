@@ -16,11 +16,12 @@ const MainContainer = () => {
     useEffect(() => {
         const requestTab = async () => {
             try {
-                const t = await fetch('http://localhost:3000/tabs/api', {
+                const t = await fetch('/tabs/api', {
                     method: 'GET',
                 }); 
                 console.log('response: ', t)
-                setTab(t);
+                const rstream = await t.text()
+                setTab(rstream);
             } catch (err) {
                 console.log('error occured while requesting tab info')
             }

@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const tabRouter = require('../routers/tabRouter.js')
+const tabRouter = require('./routers/tabRouter.js')
 
 const app = express();
 const PORT = 3000; 

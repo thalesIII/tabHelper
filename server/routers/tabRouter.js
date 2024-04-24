@@ -1,7 +1,8 @@
 const express = require('express');
 
 const router = express.Router();
-const Tab = require('../models/tabModels.js');
+const Tab = require('../../models/tabModels.js');
+const tabController = require('../controllers/tabController.js');
 
 const tabQuery = async () => {
     try{
@@ -37,28 +38,12 @@ router.get('/list', async (req, res, next) => {
         : next(result));
 })
 
-router.get('/api', async (req, res, next) => {
-    console.log('fetching from ultimate-guitar')
-    const requestTab = async () => {
-        // 'https://tabs.ultimate-guitar.com/tab/led-zeppelin/stairway-to-heaven-tabs-9488'
-        const t = await fetch('https:tabs.ultimate-guitar.com/tab/led-zeppelin/stairway-to-heaven-tabs-9488', {
-            method: 'GET',
-            mode: 'no-cors'
-        });
-        // const tab = await t.json();
-        const html = await t.text();
-
-        console.log('response: ', html)
-        return html;
-    }
-    try{
-        const rawTab = await requestTab();
-        console.log('success');
-        res.status(200).send(rawTab);
-    } catch (err) {
-        console.log('error when fetching tab')
-        return next(err);
-    }
+router.get('/api', 
+    tabController.fetchTab, 
+    tabController.parseTab, 
+    async (req, res, next) => {
+    const result = 'made it' //change...
+    res.status(200).json(result)
 })
 
 router.delete('/', async (req, res, next) => {
