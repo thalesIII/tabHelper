@@ -67,7 +67,7 @@ const MainContainer = () => {
             <MainMenu />
             {bottom}
             {/* {JSON.stringify(tab)}  testing fetch API to ultimate-guitar */}
-            {tabDisplay}
+            <div className='tab'> {tabDisplay}</div>
         </div>
     )
 }

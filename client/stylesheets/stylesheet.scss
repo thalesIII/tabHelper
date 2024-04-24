@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Maitree:wght@500&family=Proza+Libre:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Maitree:wght@500&family=Proza+Libre:ital?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 $paleyellow: rgb(240, 238, 210);
 
@@ -57,4 +57,9 @@ textarea {
 
 .tabDisplay {
     margin: 3px 3vw;
+    font-family: Roboto Mono;
+}
+
+.tab {
+    font-family: Roboto Mono, monospace;
 }
