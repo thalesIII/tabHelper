@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { openEditor, openTabList } from "../../reducers/editorReducer.js";
+import { openEditor, openTabList, openImporter } from "../../reducers/editorReducer.js";
 
 const MainMenu = (props) => {
     const dispatch = useDispatch();
@@ -12,12 +12,17 @@ const MainMenu = (props) => {
         console.log('dispatching openTabList...')
         return dispatch(openTabList());
     }
+    const importDispatch = () => {
+        console.log('dispatching openImporter...')
+        return dispatch(openImporter());
+    }
 
     return (
         <div>
             <hr/>
             <button onClick={editorDispatch}> Create </button>
             <button onClick={tabListDispatch}> Saved Tabs </button>
+            <button onClick={importDispatch}> Import Tabs </button>
             <hr/>
         </div>
     )

@@ -2,6 +2,7 @@ import { createAction, createReducer } from '@reduxjs/toolkit';
 
 const openEditor = createAction('OPEN_EDITOR');
 const openTabList = createAction('OPEN_TABLIST');
+const openImporter = createAction('OPEN_IMPORTER');
 const changeCurrentTab = createAction('CHANGE_CURRENT_TAB');
 const extendCurrentTab = createAction('EXTEND_CURRENT_TAB');
 
@@ -14,6 +15,7 @@ E <-----------------------------------------------------------------------------
 const initialState = {
     editorIsOpen: false,
     tablistIsOpen: false,
+    importerIsOpen: false,
     currentTabName: '',
     currentTabSize: 85, // currentTabSize * 50 textarea cols
     currentTab: defaultTab
@@ -30,14 +32,23 @@ const editorReducer = createReducer(initialState, (builder) => {
                 state.currentTabName = '';
                 state.currentTab = defaultTab;
             }
+            state.importerIsOpen = false;
             state.editorIsOpen = true;
             state.tablistIsOpen = false;
         })
 
         .addCase(openTabList, (state, action) => {
             console.log('opening tablist...');
+            state.importerIsOpen = false;
             state.editorIsOpen = false;
             state.tablistIsOpen = true;
+        })
+
+        .addCase(openImporter, (state, action) => {
+            console.log('opening tab importer...');
+            state.importerIsOpen = true;
+            state.editorIsOpen = false;
+            state.tablistIsOpen = false;
         })
 
         .addCase(changeCurrentTab, (state, action) => {
@@ -64,5 +75,5 @@ const editorReducer = createReducer(initialState, (builder) => {
         .addDefaultCase((state, action) => {})
 });
 
-export { openEditor, openTabList, changeCurrentTab, extendCurrentTab };
+export { openEditor, openTabList, openImporter, changeCurrentTab, extendCurrentTab };
 export default editorReducer;
