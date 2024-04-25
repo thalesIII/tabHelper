@@ -13,6 +13,14 @@ const tabQuery = async () => {
     }
 }
 
+router.post('/api', 
+    tabController.fetchTab, 
+    tabController.parseTab, 
+    async (req, res, next) => {
+        res.status(200).json(res.locals.result)
+    }
+)
+
 router.post('/', async (req, res, next) => {  
     //console.log('recieved post req to /tabs...', req.body);
     const { name, song } = req.body;
@@ -37,14 +45,6 @@ router.get('/list', async (req, res, next) => {
         ? res.status(200).json(result)
         : next(result));
 })
-
-router.get('/api', 
-    tabController.fetchTab, 
-    tabController.parseTab, 
-    async (req, res, next) => {
-        res.status(200).json(res.locals.result)
-    }
-)
 
 router.delete('/', async (req, res, next) => {
     const { id } = req.body;

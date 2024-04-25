@@ -2,10 +2,11 @@ const cheerio = require('cheerio');
 
 module.exports = {
     fetchTab: async (req, res, next) => {
-        console.log('fetching from ultimate-guitar')
         const requestTab = async () => {
-            //url will be paramaterized
-            const url = 'https://tabs.ultimate-guitar.com/tab/led-zeppelin/stairway-to-heaven-tabs-9488'
+            // 'https://tabs.ultimate-guitar.com/tab/led-zeppelin/stairway-to-heaven-tabs-9488'
+            console.log(req.body);
+            const url = req.body.URL;
+            console.log('fetching from ', url)
             const t = await fetch(url, {
                 mode: 'no-cors'
             });
