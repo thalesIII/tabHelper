@@ -2,21 +2,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { openEditor } from "../../reducers/editorReducer";
 
-const SongCard = ({ song, getTabList }) => {
+const SongCard = ({ name, info }) => {
     const dispatch = useDispatch();
 
-    const PREVIEWED_BEATS = 50;
+    console.log( name, info );
 
-    const strings = [];
-    for(const string of song.song.split('\n')){
-        const letter = string[0];
-
-        strings.push(
-            <div>
-                <p><b>{letter}</b> {string.slice(2, PREVIEWED_BEATS)}</p>
-            </div>
-        )
-    }
     
     const editorDispatch = (e) => {
         console.log('dispatching openEditor...')
@@ -37,7 +27,7 @@ const SongCard = ({ song, getTabList }) => {
         <div className='songCard'>
             <div className="songHeader">
                 <div>
-                    <p> {song.name} </p>
+                    <p> <b> {name} </b>  {'\n'} {info.artistName} </p>
                 </div>
                 <div className="listButtons">
                     <button className='edit' onClick={editorDispatch}> Edit </button> 
@@ -45,7 +35,7 @@ const SongCard = ({ song, getTabList }) => {
                 </div>
             </div>
             <div className="tabDisplay">
-                {strings}
+                {/* {strings} */}
             </div>
         </div>
     )

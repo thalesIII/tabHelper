@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeImportSearchBar, importTab } from "../../reducers/editorReducer";
+import { changeImportSearchBar, importTab, addToSongbook } from "../../reducers/editorReducer";
 
 const parseGuitarTab = (tabText) => {
     let printedTab = '';
@@ -35,6 +35,7 @@ const TabImportSection = (props) => {
             const rStream = await t.text()
             const parsedStream = JSON.parse(rStream);
             dispatch(importTab(parsedStream));
+            // document.getElementById('importSearch').value = '';
         } catch (err) {
             console.log('error occured while requesting tab info:', err)
         }
@@ -48,9 +49,9 @@ const TabImportSection = (props) => {
     const tabDisplay = (
         <div>
             <h4> Get a tab from online </h4>
-            <input size='30' placeholder='Enter an ultimate-guitar.com URL' onChange={handleURLchange}/>
+            <input size='30' id='importSearch' placeholder='Enter an ultimate-guitar.com URL' onChange={handleURLchange}/>
             {'\t'} <button onClick={requestTab}> Get Tab </button>
-            {'\t'} <button onClick={() => {}}> Add to your songbook </button>
+            {'\t'} <button onClick={() => {dispatch(addToSongbook())}}> Add to your songbook </button>
             <hr/> <br/>
             {importedTab && importedTab.songName.length && <p> 
                 <b> {importedTab.songName} </b> by {importedTab.artistName}

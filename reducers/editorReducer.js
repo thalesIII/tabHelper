@@ -7,6 +7,7 @@ const changeCurrentTab = createAction('CHANGE_CURRENT_TAB');
 const extendCurrentTab = createAction('EXTEND_CURRENT_TAB');
 const changeImportSearchBar = createAction('CHANGE_IMPORT_SEARCHBAR');
 const importTab = createAction('IMPORT_TAB');
+const addToSongbook = createAction('ADD_TO_SONGBOOK');
 
 const defaultTab = `e <---------------------------------------------------------------------------------
 B <---------------------------------------------------------------------------------
@@ -83,12 +84,26 @@ const editorReducer = createReducer(initialState, (builder) => {
         })
 
         .addCase(importTab, (state, action) => {
+            console.log('importing tab...');
             state.importSearchBar = '';
             const { songName, artistName, tab } = action.payload;
             state.importedTab = {
                 songName,
                 artistName,
                 tab
+            }
+        })
+
+        .addCase(addToSongbook, (state, action) => {
+            console.log('adding to songbook...');
+            if(state.importedTab.songName.length) {
+                state.songbook = {
+                    ...state.songbook,
+                    [state.importedTab.songName]: {
+                        artistName: state.importedTab.artistName,
+                        tab: state.importedTab.tab
+                    }
+                }
             }
         })
 
@@ -102,6 +117,7 @@ export {
     changeCurrentTab, 
     extendCurrentTab,
     changeImportSearchBar,
-    importTab
+    importTab,
+    addToSongbook
 };
 export default editorReducer;
