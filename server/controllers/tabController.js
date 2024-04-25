@@ -6,7 +6,6 @@ module.exports = {
             // 'https://tabs.ultimate-guitar.com/tab/led-zeppelin/stairway-to-heaven-tabs-9488'
             console.log(req.body);
             const url = req.body.URL;
-            console.log('fetching from ', url)
             const t = await fetch(url, {
                 mode: 'no-cors'
             });
