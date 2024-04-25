@@ -23,6 +23,9 @@ const TabImportSection = (props) => {
     const importSearchBar = useSelector(state => state.editor.importSearchBar);
 
     const requestTab = async () => {
+        if(!importSearchBar || !importSearchBar.length) {
+            return;
+        }
         try {
             const t = await fetch('/tabs/api', {
                 method: 'POST',
@@ -31,11 +34,10 @@ const TabImportSection = (props) => {
                 },
                 body: JSON.stringify({ URL: importSearchBar })
             }); 
-            console.log('response: ', t)
             const rStream = await t.text()
             const parsedStream = JSON.parse(rStream);
             dispatch(importTab(parsedStream));
-            // document.getElementById('importSearch').value = '';
+            document.getElementById('importSearch').value = '';
         } catch (err) {
             console.log('error occured while requesting tab info:', err)
         }
@@ -46,12 +48,19 @@ const TabImportSection = (props) => {
         dispatch(changeImportSearchBar(URL))
     }
 
+    const songbookDispatch = () => {
+        if(!importedTab || !importedTab.songName) {
+            return;
+        }
+        dispatch(addToSongbook())
+    }
+
     const tabDisplay = (
         <div>
             <h4> Get a tab from online </h4>
             <input size='30' id='importSearch' placeholder='Enter an ultimate-guitar.com URL' onChange={handleURLchange}/>
             {'\t'} <button onClick={requestTab}> Get Tab </button>
-            {'\t'} <button onClick={() => {dispatch(addToSongbook())}}> Add to your songbook </button>
+            {'\t'} <button onClick={songbookDispatch}> Add to your songbook </button>
             <hr/> <br/>
             {importedTab && importedTab.songName.length && <p> 
                 <b> {importedTab.songName} </b> by {importedTab.artistName}
