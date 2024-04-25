@@ -21,8 +21,8 @@ const MainMenu = (props) => {
         <div>
             <hr/>
             <button onClick={editorDispatch}> Create </button>
-            <button onClick={tabListDispatch}> Saved Tabs </button>
             <button onClick={importDispatch}> Import Tabs </button>
+            <button onClick={tabListDispatch}> Songbook </button>
             <hr/>
         </div>
     )

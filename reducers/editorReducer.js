@@ -5,6 +5,8 @@ const openTabList = createAction('OPEN_TABLIST');
 const openImporter = createAction('OPEN_IMPORTER');
 const changeCurrentTab = createAction('CHANGE_CURRENT_TAB');
 const extendCurrentTab = createAction('EXTEND_CURRENT_TAB');
+const changeImportSearchBar = createAction('CHANGE_IMPORT_SEARCHBAR');
+const importTab = createAction('IMPORT_TAB');
 
 const defaultTab = `e <---------------------------------------------------------------------------------
 B <---------------------------------------------------------------------------------
@@ -12,13 +14,17 @@ G <-----------------------------------------------------------------------------
 D <---------------------------------------------------------------------------------
 A <---------------------------------------------------------------------------------
 E <---------------------------------------------------------------------------------`;
+
 const initialState = {
     editorIsOpen: false,
     tablistIsOpen: false,
     importerIsOpen: false,
-    currentTabName: '',
-    currentTabSize: 85, // currentTabSize * 50 textarea cols
-    currentTab: defaultTab
+    importSearchBar: '', // TabImportSection
+    importedTab: { songName: '', artistName: '', tab: '' },
+    currentTabName: '', // TabEditor
+    currentTabSize: 85,     // currentTabSize * 50 textarea cols
+    currentTab: defaultTab,
+    songbook: {} // TabEditor aka Songbook
 }
 
 const editorReducer = createReducer(initialState, (builder) => {
@@ -72,8 +78,30 @@ const editorReducer = createReducer(initialState, (builder) => {
             }            
         })
 
+        .addCase(changeImportSearchBar, (state, action) => {
+            state.importSearchBar = action.payload;
+        })
+
+        .addCase(importTab, (state, action) => {
+            state.importSearchBar = '';
+            const { songName, artistName, tab } = action.payload;
+            state.importedTab = {
+                songName,
+                artistName,
+                tab
+            }
+        })
+
         .addDefaultCase((state, action) => {})
 });
 
-export { openEditor, openTabList, openImporter, changeCurrentTab, extendCurrentTab };
+export { 
+    openEditor, 
+    openTabList, 
+    openImporter, 
+    changeCurrentTab, 
+    extendCurrentTab,
+    changeImportSearchBar,
+    importTab
+};
 export default editorReducer;

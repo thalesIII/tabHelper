@@ -6,6 +6,8 @@ Guitar tabs can be quickly saved and accessed for quick writing and viewing.
 
 
 ## Upcoming features:
+**Sort out state
+**Downloading tabs?
 
 - Users and authentication
 - Streamlined UI

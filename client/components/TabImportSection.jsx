@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeImportSearchBar, importTab } from "../../reducers/editorReducer";
 
 const parseGuitarTab = (tabText) => {
     let printedTab = '';
@@ -16,8 +18,9 @@ const parseGuitarTab = (tabText) => {
 }  
 
 const TabImportSection = (props) => {
-    const [tabInfo, setTabInfo] = useState({}); //sorry redux
-    const [tabURL, setTabURL] = useState('');
+    const dispatch = useDispatch();
+    const importedTab = useSelector(state => state.editor.importedTab);
+    const importSearchBar = useSelector(state => state.editor.importSearchBar);
 
     const requestTab = async () => {
         try {
@@ -26,12 +29,12 @@ const TabImportSection = (props) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ URL: tabURL })
+                body: JSON.stringify({ URL: importSearchBar })
             }); 
             console.log('response: ', t)
             const rStream = await t.text()
             const parsedStream = JSON.parse(rStream);
-            setTabInfo(parsedStream);
+            dispatch(importTab(parsedStream));
         } catch (err) {
             console.log('error occured while requesting tab info:', err)
         }
@@ -39,25 +42,26 @@ const TabImportSection = (props) => {
 
     const handleURLchange = (e) => {
         const URL = e.target.value;
-        setTabURL(URL);
+        dispatch(changeImportSearchBar(URL))
     }
 
     const tabDisplay = (
         <div>
             <h4> Get a tab from online </h4>
             <input size='30' placeholder='Enter an ultimate-guitar.com URL' onChange={handleURLchange}/>
-            <t/> <button onClick={requestTab}> Get Tab </button>
+            {'\t'} <button onClick={requestTab}> Get Tab </button>
+            {'\t'} <button onClick={() => {}}> Add to your songbook </button>
             <hr/> <br/>
-            <p> 
-                <b> {tabInfo.songName} </b> by {tabInfo.artistName}
+            {importedTab && importedTab.songName.length && <p> 
+                <b> {importedTab.songName} </b> by {importedTab.artistName}
                 <br/> <br/>
-                {parseGuitarTab(tabInfo.tab).split('\n').map((str, i) => (
+                {parseGuitarTab(importedTab.tab).split('\n').map((str, i) => (
                     <React.Fragment key={i}>
                         {str} 
                         <br/>
                     </React.Fragment>
                 ))} 
-            </p>
+            </p>}
         </div>
     )
 
