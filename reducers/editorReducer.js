@@ -10,20 +10,14 @@ const importTab = createAction('IMPORT_TAB');
 const addToSongbook = createAction('ADD_TO_SONGBOOK');
 const removeFromSongbook = createAction('REMOVE_FROM_SONGBOOK');
 
-const defaultTab = `e <---------------------------------------------------------------------------------
-B <---------------------------------------------------------------------------------
-G <---------------------------------------------------------------------------------
-D <---------------------------------------------------------------------------------
-A <---------------------------------------------------------------------------------
-E <---------------------------------------------------------------------------------`;
+const defaultTab = { songName: '', artistName: '', tab: '' };
 
 const initialState = {
     editorIsOpen: false,
     tablistIsOpen: false,
     importerIsOpen: false,
     importSearchBar: '', // TabImportSection
-    importedTab: { songName: '', artistName: '', tab: '' },
-    currentTabName: '', // TabEditor
+    importedTab: defaultTab,
     currentTabSize: 85,     // currentTabSize * 50 textarea cols
     currentTab: defaultTab,
     songbook: {} // TabEditor aka Songbook
@@ -34,12 +28,16 @@ const editorReducer = createReducer(initialState, (builder) => {
         .addCase(openEditor, (state, action) => { 
             console.log('opening editor...');
             if (action.payload) {
-                state.currentTabName = action.payload.name;
-                state.currentTab = action.payload.song;
-            }else{
-                state.currentTabName = '';
-                state.currentTab = defaultTab;
-            }
+                const songName = action.payload.name;
+                const { artistName, tab } = action.payload.info;
+                state.currentTab = {
+                    songName,
+                    artistName,
+                    tab
+                };
+            } else state.currentTab = defaultTab;
+            
+
             state.importerIsOpen = false;
             state.editorIsOpen = true;
             state.tablistIsOpen = false;

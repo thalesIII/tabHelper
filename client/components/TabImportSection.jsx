@@ -1,21 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeImportSearchBar, importTab, addToSongbook } from "../../reducers/editorReducer";
-
-const parseGuitarTab = (tabText) => {
-    let printedTab = '';
-    if(!tabText || !tabText.length) return printedTab;
-
-    const sections = tabText.split('[/tab]'); // split sections by [tab] tag
-
-    for (const section of sections) {
-        const printedSection = section.replace(' ', '\n').replace('[tab]', '');
-        printedTab += printedSection + '\n\n';
-    }
-
-    // console.log('orig ', tabText, 'printedTab ', printedTab);
-    return printedTab;
-}  
+import { parseGuitarTab } from "../lib/tabParse";
 
 const TabImportSection = (props) => {
     const dispatch = useDispatch();
@@ -58,6 +44,11 @@ const TabImportSection = (props) => {
     const tabDisplay = (
         <div>
             <h4> Get a tab from online </h4>
+            <input type="radio" name="searchMethod" id="link"/> 
+                <label for="link"> by its link </label>
+            <input type="radio" name="searchMethod" id="search"/>
+                <label for="search"> by searching </label>
+            <br/> <br/>
             <input size='30' id='importSearch' placeholder='Enter an ultimate-guitar.com URL' onChange={handleURLchange}/>
             {'\t'} <button onClick={requestTab}> Get Tab </button>
             {'\t'} <button onClick={songbookDispatch}> Add to your songbook </button>

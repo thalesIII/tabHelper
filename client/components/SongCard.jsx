@@ -6,12 +6,11 @@ const SongCard = ({ name, info }) => {
     const dispatch = useDispatch();
 
     const editorDispatch = (e) => {
-        return dispatch(openEditor(song));
+        return dispatch(openEditor({ name, info }));
     }
-    
+
     const deleteTab = (e) => {
         dispatch(removeFromSongbook(name));
-
         // in case of DB restoration
         // fetch('/tabs', {
         //     method: 'DELETE',
