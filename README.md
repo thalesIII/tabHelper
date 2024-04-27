@@ -10,8 +10,11 @@ Editor:
     fix text area
     populate default tab + option to extend the editor
     is unparsing tabs necessary?
+    save should add to songbook
 Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
+        --state variable for the type of search being conducted
+        --parameterize the functionality on the "get tab" button
 Songbook:
     create + download the book
 Spotify:
