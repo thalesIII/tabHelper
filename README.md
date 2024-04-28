@@ -15,6 +15,8 @@ Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
         --state variable for the type of search being conducted
         --parameterize the functionality on the "get tab" button
+        --backend request for searching
+        --state variable for the links that get found
 Songbook:
     create + download the book
 Spotify:

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { changeCurrentTab, extentCurrentTab } from "../../reducers/editorReducer.js";
-import { parseGuitarTab } from "../lib/tabParse.js";
+import { parseGuitarTab } from "../lib/tabParser.js";
 
 const TabEditor = (props) => {
     const dispatch = useDispatch();

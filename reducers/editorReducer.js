@@ -6,6 +6,7 @@ const openImporter = createAction('OPEN_IMPORTER');
 const changeCurrentTab = createAction('CHANGE_CURRENT_TAB');
 const extendCurrentTab = createAction('EXTEND_CURRENT_TAB');
 const changeImportSearchBar = createAction('CHANGE_IMPORT_SEARCHBAR');
+const setSearchType = createAction('SET_SEARCH_TYPE');
 const importTab = createAction('IMPORT_TAB');
 const addToSongbook = createAction('ADD_TO_SONGBOOK');
 const removeFromSongbook = createAction('REMOVE_FROM_SONGBOOK');
@@ -17,6 +18,7 @@ const initialState = {
     tablistIsOpen: false,
     importerIsOpen: false,
     importSearchBar: '', // TabImportSection
+    searchType: '',
     importedTab: defaultTab,
     currentTabSize: 85,     // currentTabSize * 50 textarea cols
     currentTab: defaultTab,
@@ -82,6 +84,10 @@ const editorReducer = createReducer(initialState, (builder) => {
             state.importSearchBar = action.payload;
         })
 
+        .addCase(setSearchType, (state, action) => {
+            state.searchType = action.payload;
+        })
+
         .addCase(importTab, (state, action) => {
             console.log('importing tab...');
             state.importSearchBar = '';
@@ -121,6 +127,7 @@ export {
     changeCurrentTab, 
     extendCurrentTab,
     changeImportSearchBar,
+    setSearchType,
     importTab,
     addToSongbook,
     removeFromSongbook
