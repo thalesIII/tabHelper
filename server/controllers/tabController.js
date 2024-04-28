@@ -3,8 +3,6 @@ const cheerio = require('cheerio');
 module.exports = {
     fetchTab: async (req, res, next) => {
         const requestTab = async () => {
-            // 'https://tabs.ultimate-guitar.com/tab/led-zeppelin/stairway-to-heaven-tabs-9488'
-            console.log(req.body);
             const url = req.body.URL;
             const t = await fetch(url, {
                 mode: 'no-cors'

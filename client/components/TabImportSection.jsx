@@ -30,6 +30,28 @@ const TabImportSection = (props) => {
         }
     }
 
+    const requestTabSearch = async () => {
+        if(!importSearchBar || !importSearchBar.length) {
+            return;
+        }
+        console.log('requesting a search...')
+        try {
+            const t = await fetch('/search/api', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ searchParam: importSearchBar })
+            }); 
+            const rStream = await t.text()
+            const parsedStream = JSON.parse(rStream);
+            console.log(parsedStream);
+            // document.getElementById('importSearch').value = '';
+        } catch (err) {
+            console.log('error occured while searching for tabs:', err)
+        }
+    }
+
     const handleURLchange = (e) => {
         const URL = e.target.value;
         dispatch(changeImportSearchBar(URL))
@@ -50,13 +72,16 @@ const TabImportSection = (props) => {
         if(searchType === 'link'){
             requestTab();
         } else if(searchType === 'search'){
-            return; // TBA
+            requestTabSearch();
         }
     }
     
     const searchbarPlaceholder = (searchType === 'link')
         ? 'Enter an ultimate-guitar.com URL'
         : 'Enter a song or artist name'
+    const searchButtonText = (searchType === 'link')
+        ? 'Get tab'
+        : 'Search for tabs'
     const tabDisplay = (
         <div>
             <h4> Get a tab from online </h4>
@@ -73,8 +98,9 @@ const TabImportSection = (props) => {
             <br/> <br/>
             {searchType && searchType.length && <div> 
                 <input size='30' id='importSearch' placeholder={searchbarPlaceholder} onChange={handleURLchange}/>
-                {'\t'} <button onClick={searchHandler}> Get Tab </button>
-                {'\t'} <button onClick={songbookDispatch}> Add to your songbook </button>
+                {'\t'} <button onClick={searchHandler}> {searchButtonText} </button>
+                {'\t'} {importedTab && importedTab.songName.length && 
+                <button onClick={songbookDispatch}> Add to your songbook </button>}
                 <hr/> <br/>
                 {importedTab && importedTab.songName.length && <p> 
                     <b> {importedTab.songName} </b> by {importedTab.artistName}

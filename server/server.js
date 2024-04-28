@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const tabRouter = require('./routers/tabRouter.js')
+const searchRouter = require('./routers/searchRouter.js')
 
 const app = express();
 const PORT = 3000; 
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/tabs', tabRouter);
+app.use('/search', searchRouter);
 
 
 

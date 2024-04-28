@@ -13,10 +13,8 @@ Editor:
     save should add to songbook
 Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
-        --state variable for the type of search being conducted
-        --parameterize the functionality on the "get tab" button
-        --backend request for searching
-        --state variable for the links that get found
+        --parse the search results and return them to the client
+        --state variable for the links that get found / fix up frontend rendering
 Songbook:
     create + download the book
 Spotify:

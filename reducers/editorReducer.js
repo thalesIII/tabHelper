@@ -57,6 +57,8 @@ const editorReducer = createReducer(initialState, (builder) => {
             state.importerIsOpen = true;
             state.editorIsOpen = false;
             state.tablistIsOpen = false;
+            state.importSearchBar = '';
+            state.searchType = '';
         })
 
         .addCase(changeCurrentTab, (state, action) => {
