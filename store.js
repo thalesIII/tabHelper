@@ -2,19 +2,20 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import editorReducer from './reducers/editorReducer.js';
 
+const defaultTab = { songName: '', artistName: '', tab: '' }
+
 const initialState = {
-    editor: {
+    editor:     {
         editorIsOpen: false,
         tablistIsOpen: false,
-        currentTabName: '',
-        currentTabSize: 85,
-        currentTab:
-`e <--------------------------------------------------------------------------------
-B <--------------------------------------------------------------------------------
-G <--------------------------------------------------------------------------------
-D <--------------------------------------------------------------------------------
-A <--------------------------------------------------------------------------------
-E <--------------------------------------------------------------------------------`
+        importerIsOpen: false,
+        importSearchBar: '', // TabImportSection
+        searchType: '',
+        importedLinks: [],
+        importedTab: defaultTab,
+        currentTabSize: 85,     // currentTabSize * 50 textarea cols
+        currentTab: defaultTab,
+        songbook: {} // TabEditor aka Songbook
     }
 }
 

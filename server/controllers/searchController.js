@@ -3,7 +3,6 @@ const cheerio = require('cheerio');
 module.exports = { 
     searchUltimateGuitar: async (req, res, next) => {
         const requestTab = async () => {
-            console.log(req.body);
             const searchParam = req.body.searchParam.replace(' ', '%20');
             const url = `https://www.ultimate-guitar.com/search.php?search_type=title&value=${searchParam}`;
             const t = await fetch(url, {
@@ -35,6 +34,8 @@ module.exports = {
                 const linkInfo = {
                     songName: result.song_name,
                     artistName: result.artist_name,
+                    type: result.type,
+                    difficulty: result.difficulty,
                     tabUrl: result.tab_url
                 };
                 extractedLinks.push(linkInfo);

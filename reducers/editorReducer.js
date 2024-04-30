@@ -7,6 +7,7 @@ const changeCurrentTab = createAction('CHANGE_CURRENT_TAB');
 const extendCurrentTab = createAction('EXTEND_CURRENT_TAB');
 const changeImportSearchBar = createAction('CHANGE_IMPORT_SEARCHBAR');
 const setSearchType = createAction('SET_SEARCH_TYPE');
+const importLinks = createAction('IMPORT_LINKS');
 const importTab = createAction('IMPORT_TAB');
 const addToSongbook = createAction('ADD_TO_SONGBOOK');
 const removeFromSongbook = createAction('REMOVE_FROM_SONGBOOK');
@@ -19,6 +20,7 @@ const initialState = {
     importerIsOpen: false,
     importSearchBar: '', // TabImportSection
     searchType: '',
+    importedLinks: [],
     importedTab: defaultTab,
     currentTabSize: 85,     // currentTabSize * 50 textarea cols
     currentTab: defaultTab,
@@ -101,6 +103,14 @@ const editorReducer = createReducer(initialState, (builder) => {
             }
         })
 
+        .addCase(importLinks, (state, action) => {
+            console.log('initial state', state.importedLinks);
+            console.log('incoming: ', action.payload);
+            
+            console.log('importing links...');
+            state.importedLinks = [...state.importedLinks, ...action.payload];
+        })
+
         .addCase(addToSongbook, (state, action) => {
             console.log('adding to songbook...');
             if(state.importedTab.songName.length) {
@@ -130,6 +140,7 @@ export {
     extendCurrentTab,
     changeImportSearchBar,
     setSearchType,
+    importLinks,
     importTab,
     addToSongbook,
     removeFromSongbook

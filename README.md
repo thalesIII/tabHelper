@@ -13,8 +13,8 @@ Editor:
     save should add to songbook
 Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
-        --parse the search results and return them to the client
-        --state variable for the links that get found / fix up frontend rendering
+        -- format the search results table
+        --review state / rendering quirks on import page
 Songbook:
     create + download the book
 Spotify:
