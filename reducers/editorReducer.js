@@ -133,6 +133,7 @@ const editorReducer = createReducer(initialState, (builder) => {
 });
 
 export { 
+    initialState,
     openEditor, 
     openTabList, 
     openImporter, 
