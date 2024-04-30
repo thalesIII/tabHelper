@@ -13,7 +13,9 @@ Editor:
     save should add to songbook
 Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
-        -- format the search results table
+        -- clear the search results upon new search
+        -- "More" button
+        -- what is going on with the 2 initial state objects?
         --review state / rendering quirks on import page
 Songbook:
     create + download the book

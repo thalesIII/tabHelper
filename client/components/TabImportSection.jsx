@@ -98,7 +98,7 @@ const TabImportSection = (props) => {
         ) : null;
     const linkSection = (importedLinks && importedLinks.length)
         ?   (
-            <table id='searchResultTable'> 
+            <table className='searchResultTable'> 
                 <tr>
                     <td> <b> Title </b> </td>
                     <td> <b> Artist </b> </td>
