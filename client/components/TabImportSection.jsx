@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchType, changeImportSearchBar, importTab, addToSongbook, importLinks } from "../../reducers/editorReducer";
+import { setSearchType, changeImportSearchBar, importTab, addToSongbook, importLinks, loadNextPage } from "../../reducers/editorReducer";
 import { parseGuitarTab } from "../lib/tabParser";
 
 const TabImportSection = (props) => {
@@ -9,8 +9,9 @@ const TabImportSection = (props) => {
     const importedLinks = useSelector(state => state.editor.importedLinks);
     const importSearchBar = useSelector(state => state.editor.importSearchBar);
     const searchType = useSelector(state => state.editor.searchType);
+    const page = useSelector(state => state.editor.page);
 
-    const requestTab = async () => {
+    const requestTab = async (url) => {
         if(!importSearchBar || !importSearchBar.length) {
             return;
         }
@@ -20,7 +21,7 @@ const TabImportSection = (props) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ URL: importSearchBar })
+                body: JSON.stringify({ URL: (url || importSearchBar) })
             }); 
             const rStream = await t.text()
             const parsedStream = JSON.parse(rStream);
@@ -31,7 +32,7 @@ const TabImportSection = (props) => {
         }
     }
 
-    const requestTabSearch = async () => {
+    const requestTabSearch = async (url) => {
         if(!importSearchBar || !importSearchBar.length) {
             return;
         }
@@ -42,11 +43,15 @@ const TabImportSection = (props) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ searchParam: importSearchBar })
+                body: JSON.stringify({ 
+                    searchParam: importSearchBar,
+                    page: (page + 1)
+                })
             }); 
             const rStream = await t.text()
             const parsedStream = JSON.parse(rStream);
-            dispatch(importLinks(parsedStream))
+            dispatch(importLinks(parsedStream));
+            dispatch(loadNextPage());
             document.getElementById('importSearch').value = '';
         } catch (err) {
             console.log('error occured while searching for tabs:', err)
@@ -98,24 +103,27 @@ const TabImportSection = (props) => {
         ) : null;
     const linkSection = (importedLinks && importedLinks.length)
         ?   (
-            <table className='searchResultTable'> 
-                <tr>
-                    <td> <b> Title </b> </td>
-                    <td> <b> Artist </b> </td>
-                    <td> <b> Type </b> </td>
-                    <td> <b> Difficulty </b> </td>
-                </tr>
-                {importedLinks.map((linkInfo) => (
-                        <tr>
-                            <td> {linkInfo.songName} </td>
-                            <td> {linkInfo.artistName} </td>
-                            <td> {linkInfo.type} </td>
-                            <td> {linkInfo.difficulty} </td>
-                            <td> <button> Import </button> </td>
-                        </tr>
-                    ))
-                }
-            </table>
+            <div>
+                <table className='searchResultTable'> 
+                    <tr>
+                        <td> <b> Title </b> </td>
+                        <td> <b> Artist </b> </td>
+                        <td> <b> Type </b> </td>
+                        <td> <b> Difficulty </b> </td>
+                    </tr>
+                    {importedLinks.map((linkInfo) => (
+                            <tr>
+                                <td> {linkInfo.songName} </td>
+                                <td> {linkInfo.artistName} </td>
+                                <td> {linkInfo.type} </td>
+                                <td> {linkInfo.difficulty} </td>
+                                <td> <button onClick={() => {requestTab(linkInfo.tabUrl)}}> Import </button> </td>
+                            </tr>
+                        ))
+                    }
+                </table>
+                <button onClick={searchHandler}> More </button>
+            </div>
         ) : null;
     const tabDisplay = (
         <div>

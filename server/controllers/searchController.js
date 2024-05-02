@@ -4,7 +4,8 @@ module.exports = {
     searchUltimateGuitar: async (req, res, next) => {
         const requestTab = async () => {
             const searchParam = req.body.searchParam.replace(' ', '%20');
-            const url = `https://www.ultimate-guitar.com/search.php?search_type=title&value=${searchParam}`;
+            const page = (req.body.page || 1);
+            const url = `https://www.ultimate-guitar.com/search.php?page=${page}&search_type=title&value=${searchParam}`;
             const t = await fetch(url, {
                 mode: 'no-cors'
             });

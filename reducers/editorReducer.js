@@ -8,6 +8,7 @@ const extendCurrentTab = createAction('EXTEND_CURRENT_TAB');
 const changeImportSearchBar = createAction('CHANGE_IMPORT_SEARCHBAR');
 const setSearchType = createAction('SET_SEARCH_TYPE');
 const importLinks = createAction('IMPORT_LINKS');
+const loadNextPage = createAction('LOAD_NEXT_PAGE')
 const importTab = createAction('IMPORT_TAB');
 const addToSongbook = createAction('ADD_TO_SONGBOOK');
 const removeFromSongbook = createAction('REMOVE_FROM_SONGBOOK');
@@ -21,6 +22,7 @@ const initialState = {
     importSearchBar: '', // TabImportSection
     searchType: '',
     importedLinks: [],
+    page: 0,
     importedTab: defaultTab,
     currentTabSize: 85,     // currentTabSize * 50 textarea cols
     currentTab: defaultTab,
@@ -103,6 +105,12 @@ const editorReducer = createReducer(initialState, (builder) => {
             }
         })
 
+        .addCase(loadNextPage, (state, action) => {
+            state.page++; 
+            //this could be combined with importTab ??
+            //how will page be reset
+        })
+
         .addCase(importLinks, (state, action) => {
             console.log('initial state', state.importedLinks);
             console.log('incoming: ', action.payload);
@@ -142,6 +150,7 @@ export {
     changeImportSearchBar,
     setSearchType,
     importLinks,
+    loadNextPage,
     importTab,
     addToSongbook,
     removeFromSongbook
