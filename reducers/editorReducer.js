@@ -8,8 +8,8 @@ const extendCurrentTab = createAction('EXTEND_CURRENT_TAB');
 const changeImportSearchBar = createAction('CHANGE_IMPORT_SEARCHBAR');
 const setSearchType = createAction('SET_SEARCH_TYPE');
 const importLinks = createAction('IMPORT_LINKS');
-const loadNextPage = createAction('LOAD_NEXT_PAGE')
 const importTab = createAction('IMPORT_TAB');
+const clearImportedTab = createAction('CLEAR_IMPORTED_TAB');
 const addToSongbook = createAction('ADD_TO_SONGBOOK');
 const removeFromSongbook = createAction('REMOVE_FROM_SONGBOOK');
 
@@ -105,18 +105,20 @@ const editorReducer = createReducer(initialState, (builder) => {
             }
         })
 
-        .addCase(loadNextPage, (state, action) => {
-            state.page++; 
-            //this could be combined with importTab ??
-            //how will page be reset
+        .addCase(clearImportedTab, (state, action) => {
+            state.importedTab = defaultTab;
         })
 
         .addCase(importLinks, (state, action) => {
-            console.log('initial state', state.importedLinks);
-            console.log('incoming: ', action.payload);
-            
             console.log('importing links...');
-            state.importedLinks = [...state.importedLinks, ...action.payload];
+            state.importedTab = defaultTab;
+            if(action.payload.fresh){
+                state.importedLinks = [...action.payload.parsedStream];
+                state.page = 0;
+            } else {
+                state.importedLinks = [...state.importedLinks, ...action.payload.parsedStream];
+            }
+            state.page++;
         })
 
         .addCase(addToSongbook, (state, action) => {
@@ -150,8 +152,8 @@ export {
     changeImportSearchBar,
     setSearchType,
     importLinks,
-    loadNextPage,
     importTab,
+    clearImportedTab,
     addToSongbook,
     removeFromSongbook
 };

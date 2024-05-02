@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchType, changeImportSearchBar, importTab, addToSongbook, importLinks, loadNextPage } from "../../reducers/editorReducer";
+import { setSearchType, changeImportSearchBar, importTab, addToSongbook, importLinks, clearImportedTab } from "../../reducers/editorReducer";
 import { parseGuitarTab } from "../lib/tabParser";
 
 const TabImportSection = (props) => {
@@ -32,7 +32,7 @@ const TabImportSection = (props) => {
         }
     }
 
-    const requestTabSearch = async (url) => {
+    const requestTabSearch = async (fresh) => {
         if(!importSearchBar || !importSearchBar.length) {
             return;
         }
@@ -50,8 +50,10 @@ const TabImportSection = (props) => {
             }); 
             const rStream = await t.text()
             const parsedStream = JSON.parse(rStream);
-            dispatch(importLinks(parsedStream));
-            dispatch(loadNextPage());
+            dispatch(importLinks({
+                parsedStream,
+                fresh
+            }));
             document.getElementById('importSearch').value = '';
         } catch (err) {
             console.log('error occured while searching for tabs:', err)
@@ -74,11 +76,11 @@ const TabImportSection = (props) => {
         dispatch(setSearchType(type));
     }
 
-    const searchHandler = () => {
+    const searchHandler = (fresh) => {
         if(searchType === 'link'){
             requestTab();
         } else if(searchType === 'search'){
-            requestTabSearch();
+            requestTabSearch(fresh);
         }
     }
     
@@ -88,18 +90,24 @@ const TabImportSection = (props) => {
     const searchButtonText = (searchType === 'link')
         ? 'Get tab'
         : 'Search for tabs'
+    const tabsLoaded = !!(importedTab && importedTab.songName.length);
+    const linksLoaded = !!(importedLinks && importedLinks.length);
     const tabSection = (importedTab && importedTab.songName.length)
         ?   (
-                <p> 
-                    <b> {importedTab.songName} </b> by {importedTab.artistName}
-                    <br/> <br/>
-                    {parseGuitarTab(importedTab.tab).split('\n').map((str, i) => (
-                        <React.Fragment key={i}>
-                            {str} 
-                            <br/>
-                        </React.Fragment>
-                    ))} 
-                </p>
+                <div> 
+                    {!!(importedLinks && importedLinks.length) && 
+                    <button onClick={() => {dispatch(clearImportedTab())}}> Back to search results </button>}
+                    <p> 
+                        <b> {importedTab.songName} </b> by {importedTab.artistName}
+                        <br/> <br/>
+                        {parseGuitarTab(importedTab.tab).split('\n').map((str, i) => (
+                            <React.Fragment key={i}>
+                                {str} 
+                                <br/>
+                            </React.Fragment>
+                        ))} 
+                    </p> 
+                </div>
         ) : null;
     const linkSection = (importedLinks && importedLinks.length)
         ?   (
@@ -130,14 +138,14 @@ const TabImportSection = (props) => {
             {searchType && searchType.length && <div>
                 <div>
                     <input size='30' id='importSearch' placeholder={searchbarPlaceholder} onChange={handleURLchange}/>
-                    {'\t'} <button onClick={searchHandler}> {searchButtonText} </button>
+                    {'\t'} <button onClick={() => {searchHandler(true)}}> {searchButtonText} </button>
                     {'\t'} {!!(importedTab && importedTab.songName.length) && 
                     <button onClick={songbookDispatch}> Add to your songbook </button>}
                 </div>
                 <hr/> <br/>
                 <div>
-                    {!!(importedTab && importedTab.songName.length) && tabSection}
-                    {!!(importedLinks && importedLinks.length) && linkSection}
+                    {tabsLoaded && tabSection}
+                    {(!tabsLoaded && linksLoaded) && linkSection}
                 </div> 
             </div>}
         </div>

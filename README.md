@@ -13,9 +13,9 @@ Editor:
     save should add to songbook
 Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
-        -- clear the search results upon new search
-        -- figure out how to reset the page number etc in state
-        --review state / rendering quirks on import page
+        --fix the more button
+        --fix issue where you can't get mutliple tabs from one search
+        --filter out video tabs
 Songbook:
     create + download the book
 Spotify:
