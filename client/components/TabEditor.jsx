@@ -4,12 +4,19 @@ import { useDispatch } from "react-redux";
 import { changeCurrentTab, extentCurrentTab } from "../../reducers/editorReducer.js";
 import { parseGuitarTab } from "../lib/tabParser.js";
 
+const blankEditorText = `e|--------------------------|---------------------------|----------------------|
+B|--------------------------|---------------------------|----------------------|
+G|--------------------------|---------------------------|----------------------|
+D|--------------------------|---------------------------|----------------------|
+A|--------------------------|---------------------------|----------------------|
+E|--------------------------|---------------------------|----------------------|`;
+
 const TabEditor = (props) => {
     const dispatch = useDispatch();
 
     const cols = useSelector(state => state.editor.currentTabSize);
     const { songName, artistName, tab } = useSelector(state => state.editor.currentTab);
-    const tabText = parseGuitarTab(tab);
+    const tabText = parseGuitarTab(tab).length ? parseGuitarTab(tab) : blankEditorText;
 
     const tabChange = (e) => {
         dispatch(changeCurrentTab(e.target.value));
@@ -43,7 +50,7 @@ const TabEditor = (props) => {
         <div>
             {songName.length ? nameHolder : titleHolder}
             <br/> <br/>
-            <textarea id='tabWriter' wrap='off' rows={6} cols={cols} 
+            <textarea id='tabWriter' wrap='off' rows={10} cols={cols} 
             defaultValue={tabText} onChange={tabChange}/>
             <div>
                 <button className='editorBottom' onClick={tabSave}> Save </button>

@@ -7,13 +7,13 @@ Guitar tabs can be quickly saved and accessed for quick writing and viewing.
 
 ## Upcoming features:
 Editor:
-    resize text area
-    populate default tab + option to extend the editor
+    option to extend the editor / add more tab
     fix the editing in the state/reducers
     save should add to songbook
 Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
-        --show an error message when accessing an unreadable tab (naked return on line )
+        --show an error message when accessing an unreadable tab (naked return on line 31)
+        --deal with all errors in the log
 Songbook:
     create + download the book
 Spotify:

@@ -1,6 +1,6 @@
 export const parseGuitarTab = (tabText) => {
     if(!tabText || !tabText.length) {
-        return 'Could not read tab... Try a different one.'
+        return '';
     };
     
     let printedTab = '';
