@@ -1,7 +1,9 @@
 export const parseGuitarTab = (tabText) => {
+    if(!tabText || !tabText.length) {
+        return 'Could not read tab... Try a different one.'
+    };
+    
     let printedTab = '';
-    if(!tabText || !tabText.length) return printedTab;
-
     const sections = tabText.split('[/tab]'); // split sections by [tab] tag
 
     for (const section of sections) {

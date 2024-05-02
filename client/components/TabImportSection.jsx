@@ -25,7 +25,11 @@ const TabImportSection = (props) => {
             }); 
             const rStream = await t.text()
             const parsedStream = JSON.parse(rStream);
-            dispatch(importTab(parsedStream));
+            if(!parsedStream.err) {
+                dispatch(importTab(parsedStream))
+            } else {
+                return;
+            }
             document.getElementById('importSearch').value = '';
         } catch (err) {
             console.log('error occured while requesting tab info:', err)

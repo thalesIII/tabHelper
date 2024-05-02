@@ -31,7 +31,7 @@ module.exports = {
 
         const extractedLinks = [];
         for(const result of results) {
-            if (result.tab_url && result.type !== 'video') {
+            if (result.tab_url && result.type !== 'video' && result.type !== 'Video') {
                 const linkInfo = {
                     songName: result.song_name,
                     artistName: result.artist_name,

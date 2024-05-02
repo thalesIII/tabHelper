@@ -13,7 +13,7 @@ Editor:
     save should add to songbook
 Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
-        --filter out tabs with no real data / unreadable
+        --show an error message when accessing an unreadable tab (naked return on line )
 Songbook:
     create + download the book
 Spotify:
