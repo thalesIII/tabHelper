@@ -12,7 +12,7 @@ const TabImportSection = (props) => {
     const page = useSelector(state => state.editor.page);
 
     const requestTab = async (url) => {
-        if(!importSearchBar || !importSearchBar.length) {
+        if(!url && (!importSearchBar || !importSearchBar.length)) {
             return;
         }
         try {
@@ -33,10 +33,10 @@ const TabImportSection = (props) => {
     }
 
     const requestTabSearch = async (fresh) => {
-        if(!importSearchBar || !importSearchBar.length) {
+        if(!linksLoaded && (!importSearchBar || !importSearchBar.length)) {
             return;
         }
-        console.log('requesting a search...')
+        console.log('requesting a search...', fresh)
         try {
             const t = await fetch('/search/api', {
                 method: 'POST',
@@ -130,7 +130,7 @@ const TabImportSection = (props) => {
                         ))
                     }
                 </table>
-                <button onClick={searchHandler}> More </button>
+                <button onClick={() => {searchHandler(false)}}> More </button>
             </div>
         ) : null;
     const tabDisplay = (

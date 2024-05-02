@@ -13,9 +13,7 @@ Editor:
     save should add to songbook
 Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
-        --fix the more button
-        --fix issue where you can't get mutliple tabs from one search
-        --filter out video tabs
+        --filter out tabs with no real data / unreadable
 Songbook:
     create + download the book
 Spotify:

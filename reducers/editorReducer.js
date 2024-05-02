@@ -63,6 +63,7 @@ const editorReducer = createReducer(initialState, (builder) => {
             state.tablistIsOpen = false;
             state.importSearchBar = '';
             state.searchType = '';
+            state.page = 0;
         })
 
         .addCase(changeCurrentTab, (state, action) => {
@@ -111,6 +112,7 @@ const editorReducer = createReducer(initialState, (builder) => {
 
         .addCase(importLinks, (state, action) => {
             console.log('importing links...');
+
             state.importedTab = defaultTab;
             if(action.payload.fresh){
                 state.importedLinks = [...action.payload.parsedStream];
@@ -118,7 +120,7 @@ const editorReducer = createReducer(initialState, (builder) => {
             } else {
                 state.importedLinks = [...state.importedLinks, ...action.payload.parsedStream];
             }
-            state.page++;
+            state.page = state.page + 1;
         })
 
         .addCase(addToSongbook, (state, action) => {
