@@ -10,8 +10,10 @@ Editor:
     option to extend the editor / add more tab
     fix the editing in the state/reducers
     save should add to songbook
+    song title should include tab author and user
 Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
+        --add original tab author to metadata
         --show an error message when accessing an unreadable tab (naked return on line 31)
         --deal with all errors in the log
 Songbook:
