@@ -90,18 +90,21 @@ const TabImportSection = (props) => {
     
     const searchbarPlaceholder = (searchType === 'link')
         ? 'Enter an ultimate-guitar.com URL'
-        : 'Enter a song or artist name'
+        : 'Enter a song or artist name';
     const searchButtonText = (searchType === 'link')
         ? 'Get tab'
-        : 'Search for tabs'
+        : 'Search for tabs';
+    const unparseableTabMessage = <p> Sorry, an error occured while retreiving this tab, probably because of an unexpected data format. Please try another tab. </p>;
+    console.log(importedTab, "imported")
+
     const tabsLoaded = !!(importedTab && importedTab.songName.length);
     const linksLoaded = !!(importedLinks && importedLinks.length);
     const tabSection = (importedTab && importedTab.songName.length)
         ?   (
                 <div> 
-                    {!!(importedLinks && importedLinks.length) && 
+                    {!!(importedLinks && importedLinks.length) &&
                     <button onClick={() => {dispatch(clearImportedTab())}}> Back to search results </button>}
-                    <p> 
+                    {!importedTab?.tab ? unparseableTabMessage : <p> 
                         <b> {importedTab.songName} </b> by {importedTab.artistName}
                         <br/> <br/>
                         {parseGuitarTab(importedTab.tab).split('\n').map((str, i) => (
@@ -112,7 +115,7 @@ const TabImportSection = (props) => {
                         ))}
                         <br/> <br/>
                         Tablature by <i>{importedTab.authors.join(", ")}</i> on <a href={importedTab.url}>ultimate-guitar</a> 
-                    </p> 
+                    </p>}
                 </div>
         ) : null;
     const linkSection = (importedLinks && importedLinks.length)

@@ -13,8 +13,8 @@ Editor:
     song title should include tab author and user
 Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
-        --show tab name on search results, song name when opening tab (currently song name for both)
-        --show an error message when accessing an unreadable tab (naked return on line 31)
+        --show tab name on search results, song name when opening tab (currently song name for both) ??
+        --debug the way tab authors.contributors are discerned
         --deal with all errors in the log
 Songbook:
     create + download the book
