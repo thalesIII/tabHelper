@@ -109,7 +109,9 @@ const TabImportSection = (props) => {
                                 {str} 
                                 <br/>
                             </React.Fragment>
-                        ))} 
+                        ))}
+                        <br/> <br/>
+                        Tablature by <i>{importedTab.authors.join(", ")}</i> on <a href={importedTab.url}>ultimate-guitar</a> 
                     </p> 
                 </div>
         ) : null;

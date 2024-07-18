@@ -38,11 +38,14 @@ module.exports = {
         const songName = ptr.tab.song_name;
         const artistName = ptr.tab.artist_name;
         const tab = ptr.tab_view.wiki_tab.content;
+        const authors = ptr.tab_view.contributors.map(obj => obj.username); // [ {username: '' }, ... ] => []
 
         const responseData = {
             songName,
             artistName,
-            tab
+            tab,
+            authors,
+            url: req.body.URL
         };
 
         res.locals.result = responseData;
