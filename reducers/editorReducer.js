@@ -116,13 +116,14 @@ const editorReducer = createReducer(initialState, (builder) => {
             console.log('importing links...');
 
             state.importedTab = defaultTab;
-            if(action.payload.fresh){
+            if(action.payload.fresh === true){
                 state.importedLinks = [...action.payload.parsedStream];
                 state.page = 0;
             } else {
                 state.importedLinks = [...state.importedLinks, ...action.payload.parsedStream];
             }
             state.page = state.page + 1;
+            console.log(state.page);
         })
 
         .addCase(addToSongbook, (state, action) => {

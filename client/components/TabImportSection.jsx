@@ -49,7 +49,7 @@ const TabImportSection = (props) => {
                 },
                 body: JSON.stringify({ 
                     searchParam: importSearchBar,
-                    page: (page + 1)
+                    page: fresh ? 1 : (page + 1)
                 })
             }); 
             const rStream = await t.text()
