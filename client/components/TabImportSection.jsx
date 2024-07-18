@@ -136,7 +136,7 @@ const TabImportSection = (props) => {
                         ))
                     }
                 </table>
-                <button onClick={() => {searchHandler(false)}}> More </button>
+                {importSearchBar && importSearchBar.length && <button onClick={() => {searchHandler(false)}}> More </button>}
             </div>
         ) : null;
     const tabDisplay = (

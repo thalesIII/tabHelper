@@ -97,7 +97,7 @@ const editorReducer = createReducer(initialState, (builder) => {
 
         .addCase(importTab, (state, action) => {
             console.log('importing tab...');
-            state.importSearchBar = '';
+            // state.importSearchBar = '';
             const { songName, artistName, tab, authors, url } = action.payload;
             state.importedTab = {
                 songName,
