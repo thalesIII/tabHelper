@@ -95,7 +95,27 @@ const TabImportSection = (props) => {
         ? 'Get tab'
         : 'Search for tabs';
     const unparseableTabMessage = <p> Sorry, an error occured while retreiving this tab, probably because of an unexpected data format. Please try another tab. </p>;
-    console.log(importedTab, "imported")
+
+    const createAuthorCredits = () => {
+        const author = importedTab.author;
+        const contributors = importedTab.contributors.filter(name => name !== importedTab.author).join(", ");
+
+        if(!author && !contributors?.length){ // case 5: nothing found (second clause)
+            return(<p> Author not found on <a href={importedTab.url}>ultimate-guitar</a></p>)
+        }
+
+        if(!author){
+            return(<p>Tablature by <i>{contributors}</i> on <a href={importedTab.url}>ultimate-guitar</a></p>)
+        }
+
+        if(!contributors?.length){
+            return(<p>Tablature by <i>{author}</i> on <a href={importedTab.url}>ultimate-guitar</a></p>)
+        }
+            
+        return (
+            <p>Tablature by <i>{author}</i> with contributions from <i>{contributors}</i> on <a href={importedTab.url}>ultimate-guitar</a></p>
+        )
+    }
 
     const tabsLoaded = !!(importedTab && importedTab.songName.length);
     const linksLoaded = !!(importedLinks && importedLinks.length);
@@ -114,7 +134,7 @@ const TabImportSection = (props) => {
                             </React.Fragment>
                         ))}
                         <br/> <br/>
-                        Tablature by <i>{importedTab.authors.join(", ")}</i> on <a href={importedTab.url}>ultimate-guitar</a> 
+                        {createAuthorCredits()}
                     </p>}
                 </div>
         ) : null;

@@ -29,6 +29,9 @@ module.exports = {
         // extract tab data
         const ptr = data.store.page.data;
 
+        // console.log('data: ', data, "\n\nptr: ", ptr);
+        console.log(ptr);
+
         if(!ptr.tab) return next({ 
             log: 'Ultimate Guitar pro required :(',
             status: 403,
@@ -38,13 +41,16 @@ module.exports = {
         const songName = ptr.tab.song_name;
         const artistName = ptr.tab.artist_name;
         const tab = ptr.tab_view.wiki_tab.content;
-        const authors = ptr.tab_view.contributors.map(obj => obj.username); // [ {username: '' }, ... ] => []
+
+        const author = ptr.tab_view.wiki_tab.username;
+        const contributors = ptr.tab_view.contributors.map(obj => obj.username); // [ {username: '' }, ... ] => []
 
         const responseData = {
             songName,
             artistName,
             tab,
-            authors,
+            author,
+            contributors,
             url: req.body.URL
         };
 

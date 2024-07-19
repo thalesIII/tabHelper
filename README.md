@@ -14,8 +14,10 @@ Editor:
 Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
         --show tab name on search results, song name when opening tab (currently song name for both) ??
-        --debug the way tab authors.contributors are discerned
+            --song name appears to be totally absent in the data, use a different discerning factor?
+        ^^the last two both start by editing which data comes in at tabController.js
         --deal with all errors in the log
+        -authors/contributors are sometimes confused in the php page data, but works most of the time
 Songbook:
     create + download the book
 Spotify:
