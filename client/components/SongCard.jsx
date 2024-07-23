@@ -1,12 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { openEditor, removeFromSongbook } from "../../reducers/editorReducer";
+import { openEditor, resizeEditor, removeFromSongbook } from "../../reducers/editorReducer";
 
 const SongCard = ({ name, info }) => {
     const dispatch = useDispatch();
 
     const editorDispatch = (e) => {
-        return dispatch(openEditor({ name, info }));
+        dispatch(resizeEditor());
+        return dispatch(openEditor(info));
     }
 
     const deleteTab = (e) => {

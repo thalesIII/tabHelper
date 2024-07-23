@@ -34,12 +34,8 @@ const editorReducer = createReducer(initialState, (builder) => {
         .addCase(openEditor, (state, action) => { 
             console.log('opening editor...');
             if (action.payload) {
-                const songName = action.payload.name;
-                const { artistName, tab } = action.payload.info;
                 state.currentTab = {
-                    songName,
-                    artistName,
-                    tab
+                    ...action.payload
                 };
             } else state.currentTab = defaultTab;
 
@@ -128,8 +124,7 @@ const editorReducer = createReducer(initialState, (builder) => {
                 state.songbook = {
                     ...state.songbook,
                     [state.importedTab.songName]: {
-                        artistName: state.importedTab.artistName,
-                        tab: state.importedTab.tab
+                        ...state.importedTab
                     }
                 }
             }

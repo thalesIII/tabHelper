@@ -7,9 +7,7 @@ Guitar tabs can be quickly saved and accessed for quick writing and viewing.
 
 ## Upcoming features:
 Editor:
-    option to extend the editor / add more tab (fit editor to screen?)
-    fix the editing of a tab in the state/reducers (changeCurrentTab)
-    save should add to songbook
+    save should add to songbook, which currently only uses the imported tab
     song title should include tab author and user
 
 Import:
