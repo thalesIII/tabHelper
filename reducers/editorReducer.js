@@ -4,7 +4,7 @@ const openEditor = createAction('OPEN_EDITOR');
 const openTabList = createAction('OPEN_TABLIST');
 const openImporter = createAction('OPEN_IMPORTER');
 const changeCurrentTab = createAction('CHANGE_CURRENT_TAB');
-const extendCurrentTab = createAction('EXTEND_CURRENT_TAB');
+const resizeEditor = createAction('RESIZE_EDITOR');
 const changeImportSearchBar = createAction('CHANGE_IMPORT_SEARCHBAR');
 const setSearchType = createAction('SET_SEARCH_TYPE');
 const importLinks = createAction('IMPORT_LINKS');
@@ -24,8 +24,8 @@ const initialState = {
     importedLinks: [],
     page: 0,
     importedTab: defaultTab,
-    currentTabSize: 85,     // currentTabSize * 50 textarea cols
     currentTab: defaultTab,
+    editorSize: {rows: 0, cols: 0},
     songbook: {} // TabEditor aka Songbook
 }
 
@@ -42,7 +42,6 @@ const editorReducer = createReducer(initialState, (builder) => {
                     tab
                 };
             } else state.currentTab = defaultTab;
-            
 
             state.importerIsOpen = false;
             state.editorIsOpen = true;
@@ -68,23 +67,32 @@ const editorReducer = createReducer(initialState, (builder) => {
 
         .addCase(changeCurrentTab, (state, action) => {
             console.log('changing current tab...');
-            const curr = state.currentTab.split('\n')
-            const incoming = action.payload.split('\n')
-            //console.log(curr, incoming);
+            const curr = state.currentTab
+            const incoming = action.payload
+            console.log(curr, incoming);
 
             //find difference between currTab - action.payload
-            for(let i = 0; i < curr.length; i++){
-                if(curr[i].length !== incoming[i].length){
-                    //restore proper alignment/format while preserving the change
-                    if(curr[i].length > incoming[i].length) {
-                        incoming[i] = incoming[i].concat('-') //deletion
-                    }else{
-                        incoming[i] = incoming[i].slice(0, -2) //addition
-                    }
-                    state.currentTab = incoming.join('\n')
-                    break;
-                }
-            }            
+            // for(let i = 0; i < curr.length; i++){
+            //     if(curr[i].length !== incoming[i].length){
+            //         //restore proper alignment/format while preserving the change
+            //         if(curr[i].length > incoming[i].length) {
+            //             incoming[i] = incoming[i].concat('-') //deletion
+            //         }else{
+            //             incoming[i] = incoming[i].slice(0, -2) //addition
+            //         }
+            //         state.currentTab = incoming.join('\n')
+            //         break;
+            //     }
+            // }            
+        })
+
+        .addCase(resizeEditor, (state, action) => {
+            // Rough, hardcoded estimates which fit the editor to the screen
+            const charWidth = 7.2; // width of a character in pixels
+            const lineHeight = 16; // height of a line in pixels
+            state.editorSize.cols = Math.floor(window.innerWidth * .5 / charWidth);
+            state.editorSize.rows = Math.floor((window.innerHeight - 185) * .5 / lineHeight); 
+            // offset by the height of the main menu and title
         })
 
         .addCase(changeImportSearchBar, (state, action) => {
@@ -155,7 +163,7 @@ export {
     openTabList, 
     openImporter, 
     changeCurrentTab, 
-    extendCurrentTab,
+    resizeEditor,
     changeImportSearchBar,
     setSearchType,
     importLinks,

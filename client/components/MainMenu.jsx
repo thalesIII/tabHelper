@@ -1,11 +1,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { openEditor, openTabList, openImporter } from "../../reducers/editorReducer.js";
+import { openEditor, openTabList, openImporter, resizeEditor } from "../../reducers/editorReducer.js";
 
 const MainMenu = (props) => {
     const dispatch = useDispatch();
     const editorDispatch = () => {
         console.log('dispatching openEditor...');
+        dispatch(resizeEditor());
         return dispatch(openEditor(undefined));
     }
     const tabListDispatch = () => {
