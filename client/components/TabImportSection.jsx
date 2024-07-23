@@ -145,6 +145,7 @@ const TabImportSection = (props) => {
                     <tr>
                         <td> <b> Title </b> </td>
                         <td> <b> Artist </b> </td>
+                        <td> <b> Rating </b> </td>
                         <td> <b> Type </b> </td>
                         <td> <b> Difficulty </b> </td>
                     </tr>
@@ -152,6 +153,7 @@ const TabImportSection = (props) => {
                             <tr>
                                 <td> {linkInfo.songName} </td>
                                 <td> {linkInfo.artistName} </td>
+                                <td> {linkInfo.rating} </td>
                                 <td> {linkInfo.type} </td>
                                 <td> {linkInfo.difficulty} </td>
                                 <td> <button onClick={() => {requestTab(linkInfo.tabUrl)}}> Import </button> </td>

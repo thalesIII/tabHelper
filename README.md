@@ -13,10 +13,10 @@ Editor:
     song title should include tab author and user
 Import:
     importing by artist / via a request to the search page and a concurrent request to the selected link
-        --show tab name on search results, song name when opening tab (currently song name for both) ??
-            --song name appears to be totally absent in the data, use a different discerning factor?
-        ^^the last two both start by editing which data comes in at tabController.js
-        --deal with all errors in the log
+        --sorting by rating, type, and difficulty
+        --deal with all errors in the log / remove clgs
+
+        -the tab title appears to be totally absent in the data (overwritten by song's name), rating/type/difficulty can help qualify tabs but this would be nice to have (esp on search results page)
         -authors/contributors are sometimes confused in the php page data, but works most of the time
 Songbook:
     create + download the book

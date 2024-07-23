@@ -30,7 +30,7 @@ module.exports = {
         const ptr = data.store.page.data;
 
         // console.log('data: ', data, "\n\nptr: ", ptr);
-        console.log(ptr);
+        console.log('ptr...', ptr);
 
         if(!ptr.tab) return next({ 
             log: 'Ultimate Guitar pro required :(',

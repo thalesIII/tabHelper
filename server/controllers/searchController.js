@@ -29,12 +29,15 @@ module.exports = {
         const jsonData = JSON.parse(dataContent);
         const results = jsonData.store.page.data.results;
 
+        console.log('links...', results);
+
         const extractedLinks = [];
         for(const result of results) {
             if (result.tab_url && result.type !== 'video' && result.type !== 'Video') {
                 const linkInfo = {
                     songName: result.song_name,
                     artistName: result.artist_name,
+                    rating: (Number(result.rating) > 0 ? Number(result.rating).toFixed(2) : 'No Rating'),
                     type: result.type,
                     difficulty: result.difficulty,
                     tabUrl: result.tab_url
