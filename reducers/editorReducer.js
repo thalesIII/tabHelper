@@ -67,23 +67,9 @@ const editorReducer = createReducer(initialState, (builder) => {
 
         .addCase(changeCurrentTab, (state, action) => {
             console.log('changing current tab...');
-            const curr = state.currentTab
-            const incoming = action.payload
-            console.log(curr, incoming);
-
-            //find difference between currTab - action.payload
-            // for(let i = 0; i < curr.length; i++){
-            //     if(curr[i].length !== incoming[i].length){
-            //         //restore proper alignment/format while preserving the change
-            //         if(curr[i].length > incoming[i].length) {
-            //             incoming[i] = incoming[i].concat('-') //deletion
-            //         }else{
-            //             incoming[i] = incoming[i].slice(0, -2) //addition
-            //         }
-            //         state.currentTab = incoming.join('\n')
-            //         break;
-            //     }
-            // }            
+            console.log(action.payload);
+            
+            state.currentTab.tab = action.payload;
         })
 
         .addCase(resizeEditor, (state, action) => {
