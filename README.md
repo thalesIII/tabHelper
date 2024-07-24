@@ -7,6 +7,7 @@ Guitar tabs can be quickly saved and accessed for quick writing and viewing.
 
 ## Upcoming features:
 Editor:
+        --prevent the saving of a tab with a blank name/artist
         --renaming for tabs owned by the user
     
     -tabs from scratch have hardcoded author property 'user'
@@ -18,7 +19,6 @@ Import:
     -authors/contributors are sometimes confused in the php page data, but works most of the time
 
 Songbook:
-    more info on song cards?
     create + download the book
 
 Spotify:

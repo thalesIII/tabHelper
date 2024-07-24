@@ -22,11 +22,21 @@ const SongCard = ({ name, info }) => {
         // })
     } 
 
+    console.log('name: ', name, " info: ", info);
+
     return(
         <div className='songCard'>
             <div className="songHeader">
                 <div>
-                    <p> <b> {name} </b> <br/> {info.artistName} </p>
+                    <p> 
+                        <b> {name} </b> 
+                        <br/> 
+                        {info.artistName} 
+                        <br/>
+                        <i style={{fontSize: '12px'}}>
+                            {info.source === 'original' ? 'original tablature' : 'imported from online'}    
+                        </i>
+                    </p>     
                 </div>
                 <div className="listButtons">
                     <button className='edit' onClick={editorDispatch}> Edit </button> 
