@@ -38,7 +38,6 @@ const editorReducer = createReducer(initialState, (builder) => {
                 state.currentTab = {
                     ...action.payload,
                 };
-                if(state.currentTab.source === 'import') state.currentTab.source = 'import-edited';
             } else state.currentTab = defaultTab;
 
             state.importerIsOpen = false;
@@ -68,6 +67,7 @@ const editorReducer = createReducer(initialState, (builder) => {
             console.log(action.payload);
             
             state.currentTab = Object.assign(state.currentTab, action.payload);
+            if(state.currentTab.source === 'import') state.currentTab.source = 'import-edited';
         })
 
         .addCase(resizeEditor, (state, action) => {
