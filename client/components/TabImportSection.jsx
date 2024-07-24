@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchType, changeImportSearchBar, importTab, addToSongbook, importLinks, clearImportedTab } from "../../reducers/editorReducer";
+import { setSearchType, changeImportSearchBar, importTab, addToSongbook, importLinks, clearImportedTab, openTabList } from "../../reducers/editorReducer";
 import { parseGuitarTab } from "../lib/tabParser";
 
 const TabImportSection = (props) => {
@@ -74,6 +74,7 @@ const TabImportSection = (props) => {
             return;
         }
         dispatch(addToSongbook('import'));
+        return dispatch(openTabList());
     }
 
     const changeSearchType = (type) => {
