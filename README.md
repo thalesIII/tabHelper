@@ -7,9 +7,8 @@ Guitar tabs can be quickly saved and accessed for quick writing and viewing.
 
 ## Upcoming features:
 Editor:
-        --fix saving for tabs from scratch
-        --add (edited) to the songs title once an import is edited, to look better on the songbook page
-        --song title should include tab author and user
+        --renaming for tabs owned by the user, and no (edited)
+            --ive typed the tabs (original, import-edited and import-unedited)
     
     -tabs from scratch have hardcoded author property 'user'
 

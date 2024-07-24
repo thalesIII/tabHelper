@@ -13,7 +13,8 @@ const clearImportedTab = createAction('CLEAR_IMPORTED_TAB');
 const addToSongbook = createAction('ADD_TO_SONGBOOK');
 const removeFromSongbook = createAction('REMOVE_FROM_SONGBOOK');
 
-const defaultTab = { songName: '', artistName: '', tab: '' };
+const defaultTab = { songName: '', artistName: '', tab: '', source: 'original' };
+// source: original, import, import-edited
 
 const initialState = {
     editorIsOpen: false,
@@ -35,8 +36,9 @@ const editorReducer = createReducer(initialState, (builder) => {
             console.log('opening editor...');
             if (action.payload) {
                 state.currentTab = {
-                    ...action.payload
+                    ...action.payload,
                 };
+                if(state.currentTab.source === 'import') state.currentTab.source = 'import-edited';
             } else state.currentTab = defaultTab;
 
             state.importerIsOpen = false;
@@ -96,7 +98,8 @@ const editorReducer = createReducer(initialState, (builder) => {
                 tab,
                 author,
                 contributors,
-                url
+                url,
+                source: 'import'
             }
         })
 

@@ -51,7 +51,7 @@ const TabEditor = (props) => {
         <input id='editorSongName' placeholder="Song name..."/>,
         <input id='editorArtistName' placeholder="Artist..."/>
     ]
-    const nameHolder = songName + " by " + artistName + " (edited)";
+    const nameHolder = songName + " by " + artistName + ((currentTab.source === "original") ? "" : " (edited)");
 
     return(
         <div>
