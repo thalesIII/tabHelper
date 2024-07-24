@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { changeCurrentTab, resizeEditor } from "../../reducers/editorReducer.js";
+import { addToSongbook, changeCurrentTab, openTabList, resizeEditor } from "../../reducers/editorReducer.js";
 import { parseGuitarTab } from "../lib/tabParser.js";
 
 const blankEditorText = `e|--------------------------|---------------------------|----------------------|
@@ -14,8 +14,9 @@ E|--------------------------|---------------------------|----------------------|
 const TabEditor = (props) => {
     const dispatch = useDispatch();
 
-    const { songName, artistName, tab } = useSelector(state => state.editor.currentTab);
-    const { rows, cols } = useSelector(state => state.editor.editorSize)
+    const currentTab = useSelector(state => state.editor.currentTab);
+    const { rows, cols } = useSelector(state => state.editor.editorSize);
+    const { songName, artistName, tab } = currentTab;
     const tabText = parseGuitarTab(tab).length ? parseGuitarTab(tab) : blankEditorText;
 
     window.addEventListener('resize', () => {
@@ -23,25 +24,27 @@ const TabEditor = (props) => {
     })
 
     const tabChange = (e) => {
-        dispatch(changeCurrentTab(e.target.value));
+        if(!currentTab.url){
+            const name = document.getElementById('editorSongName').value;
+            const artist = document.getElementById('editorArtistName').value;
+            dispatch(changeCurrentTab({
+                songName: name,
+                artistName: artist,
+                tab: e.target.value
+            }));
+        } else {
+            dispatch(changeCurrentTab({
+                tab: e.target.value
+            }))
+        }
     }
 
     const tabSave = async (e) => {
-        const name = document.getElementById('tabName').value;
-        const tab = currentTab;
+        //this needs to work for tabs which were made from scratch
+        dispatch(addToSongbook(currentTab.url ? 'edit' : 'new'))
+        //add to songbook. payload indicates when currentTab should be used over importedTab
 
-        try{
-            await fetch('/tabs', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json" 
-                },
-                body: JSON.stringify({"name": name, "song": tab})
-            })
-        } catch(err) {
-            console.log('Error posting to server... ', err);
-            return;
-        }
+        return dispatch(openTabList()); // navigates to the newly saved tab upon saving
     }
 
     const titleHolder = [
@@ -52,7 +55,7 @@ const TabEditor = (props) => {
 
     return(
         <div>
-            {songName.length ? nameHolder : titleHolder}
+            {currentTab.url ? nameHolder : titleHolder}
             <br/> <br/>
             <textarea id='tabWriter' wrap='off' cols={cols} rows={rows}
             defaultValue={tabText} onChange={tabChange}/>

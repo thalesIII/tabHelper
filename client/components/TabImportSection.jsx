@@ -73,7 +73,7 @@ const TabImportSection = (props) => {
         if(!importedTab || !importedTab.songName) {
             return;
         }
-        dispatch(addToSongbook())
+        dispatch(addToSongbook('import'));
     }
 
     const changeSearchType = (type) => {

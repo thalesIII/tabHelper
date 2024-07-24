@@ -65,7 +65,7 @@ const editorReducer = createReducer(initialState, (builder) => {
             console.log('changing current tab...');
             console.log(action.payload);
             
-            state.currentTab.tab = action.payload;
+            state.currentTab = Object.assign(state.currentTab, action.payload);
         })
 
         .addCase(resizeEditor, (state, action) => {
@@ -119,8 +119,25 @@ const editorReducer = createReducer(initialState, (builder) => {
         })
 
         .addCase(addToSongbook, (state, action) => {
-            console.log('adding to songbook...');
-            if(state.importedTab.songName.length) {
+            console.log('adding to songbook: ', action.payload); 
+            // payload to indicate that currentTab should be used over importedTab
+            if(action.payload === 'new'){
+                state.songbook = {
+                    ...state.songbook,
+                    [state.currentTab.songName]: {
+                        ...state.currentTab,
+                        author: 'user', // for new tabs, the author and url property are hardcoded to indicate the user's tab
+                        url: 'none'
+                    }
+                }
+            } else if(action.payload === 'edit'){
+                state.songbook = {
+                    ...state.songbook,
+                    [state.currentTab.songName]: {
+                        ...state.currentTab
+                    }
+                }
+            } else if(action.payload === 'import' && state.importedTab.songName.length) {
                 state.songbook = {
                     ...state.songbook,
                     [state.importedTab.songName]: {
