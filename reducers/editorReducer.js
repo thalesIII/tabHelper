@@ -12,6 +12,8 @@ const importTab = createAction('IMPORT_TAB');
 const clearImportedTab = createAction('CLEAR_IMPORTED_TAB');
 const addToSongbook = createAction('ADD_TO_SONGBOOK');
 const removeFromSongbook = createAction('REMOVE_FROM_SONGBOOK');
+const togglePreview = createAction('TOGGLE_PREVIEW');
+const turnPreviewPage = createAction('TURN_PREVIEW_PAGE');
 
 const defaultTab = { songName: '', artistName: '', tab: '', source: 'original' };
 // source: original, import, import-edited
@@ -27,7 +29,8 @@ const initialState = {
     importedTab: defaultTab,
     currentTab: defaultTab,
     editorSize: {rows: 0, cols: 0},
-    songbook: {} // TabEditor aka Songbook
+    songbook: {}, // TabEditor aka Songbook
+    previewPage: 0
 }
 
 const editorReducer = createReducer(initialState, (builder) => {
@@ -155,6 +158,18 @@ const editorReducer = createReducer(initialState, (builder) => {
             delete state.songbook[action.payload];
         })
 
+        .addCase(togglePreview, (state, action) => {
+            state.previewPage = (state.previewPage > 0) ? 0 : 1;
+        })
+
+        .addCase(turnPreviewPage, (state, action) => {
+            const newPage = state.previewPage + (action.payload ? 1 : -1);
+            if(newPage < 1 || newPage > Object.keys(state.songbook).length + 1){
+                return; // bounds check
+            }
+            state.previewPage = newPage;
+        })
+
         .addDefaultCase((state, action) => {})
 });
 
@@ -171,6 +186,8 @@ export {
     importTab,
     clearImportedTab,
     addToSongbook,
-    removeFromSongbook
+    removeFromSongbook,
+    togglePreview,
+    turnPreviewPage
 };
 export default editorReducer;

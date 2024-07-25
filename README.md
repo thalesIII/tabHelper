@@ -20,6 +20,11 @@ Import:
 
 Songbook:
     create + download the book
+        --on view, replace the main area with a recreation of the songbook pdf 
+            (added previewPage to state and configured toggling using the buttons)
+            --add icons to the page buttons
+            --create a title page, pages for every tab in the songbook programatically
+        --pdf creation and downloading with the other button
 
 Spotify:
     top artists/songs --> 
