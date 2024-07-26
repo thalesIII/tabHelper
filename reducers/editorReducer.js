@@ -53,6 +53,7 @@ const editorReducer = createReducer(initialState, (builder) => {
             state.importerIsOpen = false;
             state.editorIsOpen = false;
             state.tablistIsOpen = true;
+            state.previewPage = 0;
         })
 
         .addCase(openImporter, (state, action) => {

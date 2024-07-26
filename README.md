@@ -14,6 +14,7 @@ Editor:
 
 Import:
         --filtering by rating, type, and difficulty
+        --confirmation upon adding to songbook
 
     -the tab title appears to be totally absent in the data (overwritten by song's name), rating/type/difficulty can help qualify tabs but this would be nice to have (esp on search results page)
     -authors/contributors are sometimes confused in the php page data, but works most of the time
@@ -22,8 +23,8 @@ Songbook:
     create + download the book
         --on view, replace the main area with a recreation of the songbook pdf 
             (added previewPage to state and configured toggling using the buttons)
-            --add icons to the page buttons
-            --create a title page, pages for every tab in the songbook programatically
+            --create a title page, 
+            --and pages for every tab in the songbook programatically
         --pdf creation and downloading with the other button
 
 Spotify:

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SongCard from "./SongCard.jsx";
 import { togglePreview, turnPreviewPage } from "../../reducers/editorReducer.js";
+
+import Button from '@mui/material/Button';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 const TabList = (props) => {
     const dispatch = useDispatch();
@@ -18,6 +22,27 @@ const TabList = (props) => {
     const previewPageHandler = (direction) => {
         return dispatch(turnPreviewPage(direction))
     }
+    
+    useEffect(() => {
+        const turnPageWithArrows = (e) => {
+            console.log('keypress', e.key, previewPage);
+    
+            if(previewPage === 0) return;
+    
+            if (e.key === 'ArrowLeft') { //left
+                console.log('left arrow detected');
+                return dispatch(turnPreviewPage(false));
+            } else if (e.key === 'ArrowRight') { //right
+                return dispatch(turnPreviewPage(true));
+            }
+        }
+
+        document.addEventListener('keydown', turnPageWithArrows);
+
+        return () => {
+            document.removeEventListener('keydown', turnPageWithArrows);
+        }
+    }, [previewPage])
 
     const tabs = [];
     let i = 0;
@@ -43,8 +68,24 @@ const TabList = (props) => {
             {(previewPage === 0) 
             ? <div className="songList"> {tabs} </div>
             : <div className="songbookPreview">
-                {(previewPage > 1) && <button onClick={() => {previewPageHandler(false)}}> page left </button>}
-                {(previewPage < Object.keys(songbook).length + 1) && <button onClick={() => {previewPageHandler(true)}}> page right </button>}
+                <div className="previewPageButtons">
+                    {(previewPage > 1) ? <Button onClick={() => {previewPageHandler(false)}}> 
+                        <ArrowCircleLeftIcon 
+                                sx={{
+                                width: 30,
+                                color: 'black',
+                                }} 
+                        /> 
+                    </Button> : <div></div>}
+                    {(previewPage < Object.keys(songbook).length + 1) ? <Button onClick={() => {previewPageHandler(true)}}> 
+                        <ArrowCircleRightIcon 
+                            sx={{
+                            width: 30,
+                            color: 'black',
+                            }} 
+                        /> 
+                    </Button> : <div></div>}
+                </div>
 
                 this is the preview - it needs: logic using pagePreview to determine which page is to be printed
                 previewPage = 1 -- title Page
