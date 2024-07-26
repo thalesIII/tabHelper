@@ -22,9 +22,8 @@ Import:
 Songbook:
     create + download the book
         --on view, replace the main area with a recreation of the songbook pdf 
-            (added previewPage to state and configured toggling using the buttons)
-            --create a title page, 
-            --and pages for every tab in the songbook programatically
+            --create a title page (seperate component?)
+            --and pages for every tab in the songbook programatically (use PreviewPage.jsx)
         --pdf creation and downloading with the other button
 
 Spotify:

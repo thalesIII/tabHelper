@@ -30,7 +30,7 @@ const initialState = {
     currentTab: defaultTab,
     editorSize: {rows: 0, cols: 0},
     songbook: {}, // TabEditor aka Songbook
-    previewPage: 0
+    previewPageNum: 0
 }
 
 const editorReducer = createReducer(initialState, (builder) => {
@@ -160,15 +160,15 @@ const editorReducer = createReducer(initialState, (builder) => {
         })
 
         .addCase(togglePreview, (state, action) => {
-            state.previewPage = (state.previewPage > 0) ? 0 : 1;
+            state.previewPageNum = (state.previewPageNum > 0) ? 0 : 1;
         })
 
         .addCase(turnPreviewPage, (state, action) => {
-            const newPage = state.previewPage + (action.payload ? 1 : -1);
+            const newPage = state.previewPageNum + (action.payload ? 1 : -1);
             if(newPage < 1 || newPage > Object.keys(state.songbook).length + 1){
                 return; // bounds check
             }
-            state.previewPage = newPage;
+            state.previewPageNum = newPage;
         })
 
         .addDefaultCase((state, action) => {})
