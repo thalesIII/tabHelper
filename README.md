@@ -24,6 +24,10 @@ Songbook:
         --on view, replace the main area with a recreation of the songbook pdf 
             --create a title page (seperate component?)
             --and pages for every tab in the songbook programatically (use PreviewPage.jsx)
+                (recreated the layout from at TabImportSection in a modularized component, now PreviewPage.jsx)
+                (debug here)
+                --better placement for page buttons? (closer together?)
+                --better placement of the page number in the preview (put it next to title in topright)
         --pdf creation and downloading with the other button
 
 Spotify:

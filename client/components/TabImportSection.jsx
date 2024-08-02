@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchType, changeImportSearchBar, importTab, addToSongbook, importLinks, clearImportedTab, openTabList } from "../../reducers/editorReducer";
-import { parseGuitarTab } from "../lib/tabParser";
+import { setSearchType, changeImportSearchBar, importTab, addToSongbook, importLinks, clearImportedTab } from "../../reducers/editorReducer";
+import PreviewPage from "./PreviewPage.jsx";
 
 const TabImportSection = (props) => {
     const dispatch = useDispatch();
@@ -94,50 +94,10 @@ const TabImportSection = (props) => {
     const searchButtonText = (searchType === 'link')
         ? 'Get tab'
         : 'Search for tabs';
-    const unparseableTabMessage = <p> Sorry, an error occured while retreiving this tab, probably because of an unexpected data format. Please try another tab. </p>;
-
-    const createAuthorCredits = () => {
-        const author = importedTab.author;
-        const contributors = importedTab.contributors.filter(name => name !== importedTab.author).join(", ");
-
-        if(!author && !contributors?.length){ // case 5: nothing found (second clause)
-            return(<p> Author not found on <a href={importedTab.url}>ultimate-guitar</a></p>)
-        }
-
-        if(!author){
-            return(<p>Tablature by <i>{contributors}</i> on <a href={importedTab.url}>ultimate-guitar</a></p>)
-        }
-
-        if(!contributors?.length){
-            return(<p>Tablature by <i>{author}</i> on <a href={importedTab.url}>ultimate-guitar</a></p>)
-        }
-            
-        return (
-            <p>Tablature by <i>{author}</i> with contributions from <i>{contributors}</i> on <a href={importedTab.url}>ultimate-guitar</a></p>
-        )
-    }
 
     const tabsLoaded = !!(importedTab && importedTab.songName.length);
     const linksLoaded = !!(importedLinks && importedLinks.length);
-    const tabSection = (importedTab && importedTab.songName.length)
-        ?   (
-                <div> 
-                    {!!(importedLinks && importedLinks.length) &&
-                    <button onClick={() => {dispatch(clearImportedTab())}}> Back to search results </button>}
-                    {!importedTab?.tab ? unparseableTabMessage : <p> 
-                        <b> {importedTab.songName} </b> by {importedTab.artistName}
-                        <br/> <br/>
-                        {parseGuitarTab(importedTab.tab).split('\n').map((str, i) => (
-                            <React.Fragment key={i}>
-                                {str} 
-                                <br/>
-                            </React.Fragment>
-                        ))}
-                        <br/> <br/>
-                        {createAuthorCredits()}
-                    </p>}
-                </div>
-        ) : null;
+
     const linkSection = (importedLinks && importedLinks.length)
         ?   (
             <div>
@@ -175,7 +135,11 @@ const TabImportSection = (props) => {
                 </div>
                 <hr/> <br/>
                 <div>
-                    {tabsLoaded && tabSection}
+                    {tabsLoaded && <div> 
+                        {!!(importedLinks && importedLinks.length) &&
+                        <button onClick={() => {dispatch(clearImportedTab())}}> Back to search results </button>} 
+                        <PreviewPage previewTab={importedTab}/> 
+                    </div>}
                     {(!tabsLoaded && linksLoaded) && linkSection}
                 </div> 
             </div>}

@@ -12,6 +12,7 @@ const TabList = (props) => {
     const dispatch = useDispatch();
 
     const songbook = useSelector(state => state.editor.songbook);
+    const songOrder = Object.keys(songbook).sort();
     const previewPageNum = useSelector(state => state.editor.previewPageNum);
 
     console.log('Page loaded --> songs: ', songbook);
@@ -60,7 +61,7 @@ const TabList = (props) => {
         <br/>
         <h4> Table of Contents </h4>
         {Object.keys(songbook).map((song, i) => 
-            <p>{i}... <t/> {song.songName} </p>
+            <p>{i + 1}... <t/> {songbook[song].songName} </p>
         )}
     </div>
 
@@ -75,7 +76,6 @@ const TabList = (props) => {
             {(previewPageNum === 0) 
             ? <div className="songList"> {tabs} </div>
             : <div className="songbookPreview">
-                Page {previewPageNum}/{(Object.keys(songbook).length + 1)}
                 <div className="previewPageButtons">
                     {(previewPageNum > 1) ? <Button onClick={() => {previewPageHandler(false)}}> 
                         <ArrowCircleLeftIcon 
@@ -95,19 +95,13 @@ const TabList = (props) => {
                     </Button> : <div></div>}
                 </div>
 
-                {/* this is the preview - it uses logic using pagePreview to determine which page is to be printed
-                previewPage = 1 -- title Page
-                previewPage = 2 -- song 1: index 0 in the songbook (obj.keys?) meaning (song index = previewPage - 2) 
-                
-            */}
-                
-                <br/>
-
                 {(previewPageNum === 1)
                 ? previewTitlePage
-                : <PreviewPage songIndex={previewPageNum - 2}/>
-                }
-
+                : <PreviewPage 
+                    previewTab={songbook[songOrder[previewPageNum - 2]]}
+                    pageNum={previewPageNum}
+                    numPages={songOrder.length + 1}
+                />}
             </div>}
         </div>
     )
