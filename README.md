@@ -13,6 +13,7 @@ Editor:
     -tabs from scratch have hardcoded author property 'user'
 
 Import:
+        --prevent the population of past search results (and the back button) when search type is changed after importing a tab
         --filtering by rating, type, and difficulty
         --confirmation upon adding to songbook
 
@@ -26,8 +27,7 @@ Songbook:
             --and pages for every tab in the songbook programatically (use PreviewPage.jsx)
                 (recreated the layout from at TabImportSection in a modularized component, now PreviewPage.jsx)
                 (debug here)
-                --better placement for page buttons? (closer together?)
-                --better placement of the page number in the preview (put it next to title in topright)
+                --better placement for page buttons? (bottom corners?)
         --pdf creation and downloading with the other button
 
 Spotify:

@@ -2,8 +2,10 @@ import React from "react";
 import { parseGuitarTab } from "../lib/tabParser";
 
 const PreviewPage = ({ previewTab, pageNum, numPages }) => {
-    const pageNumSection = (pageNum && numPages) ? <p> Song {pageNum - 1}/{numPages - 1} </p> : <p> </p>;
-    const unparseableTabMessage = <span> Sorry, an error occured while retreiving this tab, probably because of an unexpected data format. Please try another tab. </span>;
+    const pageNumSection = (pageNum && numPages) 
+        ? <span> Song <b>{pageNum - 1}</b> of {numPages - 1} </span> 
+        : <span> </span>;
+    const unparseableTabMessage = <p> Sorry, an error occured while retreiving this tab, probably because of an unexpected data format. Please try another tab. </p>;
     
     const AuthorCredits = () => {
         const author = previewTab.author;
@@ -35,7 +37,7 @@ const PreviewPage = ({ previewTab, pageNum, numPages }) => {
         ?   (
                 <div>
                     {!previewTab?.tab ? unparseableTabMessage : <div>
-                        <div id='previewPageHeader'>
+                        <div className='previewPageHeader'>
                             <span> <b> {previewTab.songName} </b> by {previewTab.artistName} </span>
                             {pageNumSection}
                         </div>
