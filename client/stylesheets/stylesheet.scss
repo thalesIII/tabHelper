@@ -73,6 +73,31 @@ textarea {
     width: 80vw;
 }
 
+.titlePage {
+    h2, h3 {
+        text-align: center;
+    }
+    table {
+        tr{
+            display: flex;
+            justify-content: space-between;
+        }
+        tr:nth-child(even) {
+            background-color: #9e9e9e;
+        }
+        padding: 5px;
+        border: 1px solid black;
+        width: 100%;
+    }
+}
+
+.previewPage {
+    margin: 0 auto;
+    padding: 12px;
+    width: 80vw;
+    border: 1px solid black;
+}
+
 .previewPageButtons {
     display: flex;
     justify-content: space-between;

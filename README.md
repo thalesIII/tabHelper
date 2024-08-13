@@ -21,14 +21,13 @@ Import:
     -authors/contributors are sometimes confused in the php page data, but works most of the time
 
 Songbook:
-    create + download the book
         --on view, replace the main area with a recreation of the songbook pdf 
-            --create a title page (seperate component?)
-            --and pages for every tab in the songbook programatically (use PreviewPage.jsx)
-                (recreated the layout from at TabImportSection in a modularized component, now PreviewPage.jsx)
-                (debug here)
-                --better placement for page buttons? (bottom corners?)
+            --better placement for page buttons? (bottom corners?)
         --pdf creation and downloading with the other button
+            --rework page numbers for this version?
+            --links in table of contents?
+
+    -the component PreviewPage.jsx now deals with rendering a tab as it will appear in the preview, pdf, and search results, except SongbookTitlePage.jsx, which renders the title page.
 
 Spotify:
     top artists/songs --> 

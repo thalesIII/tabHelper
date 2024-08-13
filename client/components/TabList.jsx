@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SongCard from "./SongCard.jsx";
 import PreviewPage from "./PreviewPage.jsx";
+import SongbookTitlePage from "./SongbookTitlePage.jsx";
 import { togglePreview, turnPreviewPage } from "../../reducers/editorReducer.js";
 
 import Button from '@mui/material/Button';
@@ -55,16 +56,6 @@ const TabList = (props) => {
         );
     }
 
-    const previewTitlePage = <div>
-        <h2> Guitar Tablature Archive </h2>
-        <h3> created on {Date.now()} </h3>
-        <br/>
-        <h4> Table of Contents </h4>
-        {Object.keys(songbook).map((song, i) => 
-            <p>{i + 1}... <t/> {songbook[song].songName} </p>
-        )}
-    </div>
-
     return(
         <div>
             <h4> Your saved tabs: </h4>
@@ -95,13 +86,15 @@ const TabList = (props) => {
                     </Button> : <div></div>}
                 </div>
 
-                {(previewPageNum === 1)
-                ? previewTitlePage
-                : <PreviewPage 
-                    previewTab={songbook[songOrder[previewPageNum - 2]]}
-                    pageNum={previewPageNum}
-                    numPages={songOrder.length + 1}
-                />}
+                <div className="previewPage"> 
+                    {(previewPageNum === 1)
+                    ? <SongbookTitlePage order={songOrder}/>
+                    : <PreviewPage 
+                        previewTab={songbook[songOrder[previewPageNum - 2]]}
+                        pageNum={previewPageNum}
+                        numPages={songOrder.length + 1}
+                    />}
+                </div>
             </div>}
         </div>
     )
