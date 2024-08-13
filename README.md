@@ -9,6 +9,7 @@ Guitar tabs can be quickly saved and accessed for quick writing and viewing.
 Editor:
         --prevent the saving of a tab with a blank name/artist
         --renaming for tabs owned by the user
+        --incorrect handling of spaces (' ') causing bugged preview/rendering
     
     -tabs from scratch have hardcoded author property 'user'
 
@@ -21,8 +22,6 @@ Import:
     -authors/contributors are sometimes confused in the php page data, but works most of the time
 
 Songbook:
-        --on view, replace the main area with a recreation of the songbook pdf 
-            --better placement for page buttons? (bottom corners?)
         --pdf creation and downloading with the other button
             --rework page numbers for this version?
             --links in table of contents?

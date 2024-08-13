@@ -19,6 +19,68 @@ textarea {
     font-size: 1.75em;
 }
 
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.mainHeading {
+    flex-grow: 0;
+}
+
+.mainContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+}
+
+.songbook {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden; 
+}
+
+.songbookHeader {
+    flex-grow: 0;
+}
+
+.songList {
+    flex-grow: 0;
+    overflow-y: auto; 
+}
+
+.songbookPreview {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.previewPage {
+    flex-grow: 1;
+    margin: 0 auto;
+    width: 80vw;
+    border: 1px solid black;
+    padding: 12px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+.previewPageButtons {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 0;
+}
+
+.previewPageHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
 .editorBottom {
     display: flex;
     flex-direction: row;
@@ -60,7 +122,8 @@ textarea {
     font-family: Roboto Mono;
 }
 
-.tab {
+.tab, .previewPage {
+    //monospace fonts ensure readability of guitar tabs
     font-family: Roboto Mono, monospace;
 }
 
@@ -89,22 +152,4 @@ textarea {
         border: 1px solid black;
         width: 100%;
     }
-}
-
-.previewPage {
-    margin: 0 auto;
-    padding: 12px;
-    width: 80vw;
-    border: 1px solid black;
-}
-
-.previewPageButtons {
-    display: flex;
-    justify-content: space-between;
-    // width: 30vw;
-}
-
-.previewPageHeader {
-    display: flex;
-    justify-content: space-between;
 }

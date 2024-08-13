@@ -16,11 +16,15 @@ const MainContainer = () => {
     if(importerIsOpen) bottom = <TabImportSection/>
 
     return (
-        <div>
-            <h2> Tab Helper </h2>
-            <p> Quickly save/store guitar tabs  </p>
-            <MainMenu />
-            {bottom}
+        <div className="mainContainer">
+            <div className="mainHeading">
+                <h2> Tab Helper </h2>
+                <p> Quickly save/store guitar tabs  </p>
+                <MainMenu />
+            </div>
+            <div className="mainContent">
+                {bottom}
+            </div>
         </div>
     )
 }

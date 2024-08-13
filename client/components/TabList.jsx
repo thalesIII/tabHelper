@@ -57,16 +57,27 @@ const TabList = (props) => {
     }
 
     return(
-        <div>
-            <h4> Your saved tabs: </h4>
-            <div>
-                <button onClick={togglePreviewDispatch}> {(previewPageNum === 0) ? 'Preview Book' : 'Close Preview'} </button>
-                <button> Download PDF </button>
+        <div className="songbook">
+            <div className="songbookHeader">
+                <h4> Your saved tabs: </h4>
+                <div>
+                    <button onClick={togglePreviewDispatch}> {(previewPageNum === 0) ? 'Preview Book' : 'Close Preview'} </button>
+                    <button> Download PDF </button>
+                </div>
             </div>
             <br/>
             {(previewPageNum === 0) 
             ? <div className="songList"> {tabs} </div>
             : <div className="songbookPreview">
+                <div className="previewPage"> 
+                    {(previewPageNum === 1)
+                    ? <SongbookTitlePage order={songOrder}/>
+                    : <PreviewPage 
+                        previewTab={songbook[songOrder[previewPageNum - 2]]}
+                        pageNum={previewPageNum}
+                        numPages={songOrder.length + 1}
+                    />}
+                </div>
                 <div className="previewPageButtons">
                     {(previewPageNum > 1) ? <Button onClick={() => {previewPageHandler(false)}}> 
                         <ArrowCircleLeftIcon 
@@ -84,16 +95,6 @@ const TabList = (props) => {
                             }} 
                         /> 
                     </Button> : <div></div>}
-                </div>
-
-                <div className="previewPage"> 
-                    {(previewPageNum === 1)
-                    ? <SongbookTitlePage order={songOrder}/>
-                    : <PreviewPage 
-                        previewTab={songbook[songOrder[previewPageNum - 2]]}
-                        pageNum={previewPageNum}
-                        numPages={songOrder.length + 1}
-                    />}
                 </div>
             </div>}
         </div>
