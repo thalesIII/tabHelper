@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SongCard from "./SongCard.jsx";
 import PreviewPage from "./PreviewPage.jsx";
 import SongbookTitlePage from "./SongbookTitlePage.jsx";
 import { togglePreview, turnPreviewPage } from "../../reducers/editorReducer.js";
+import { printPageAsPdf } from "../lib/pdfGenerator.js";
 
 import Button from '@mui/material/Button';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
@@ -25,6 +26,10 @@ const TabList = (props) => {
     const previewPageHandler = (direction) => {
         return dispatch(turnPreviewPage(direction))
     }
+
+    const pdfHandler = () => {
+        printPageAsPdf( offScreenRef.current );
+    } //Replace with the appropriate function call for PDF
     
     useEffect(() => {
         const turnPageWithArrows = (e) => {
@@ -56,13 +61,37 @@ const TabList = (props) => {
         );
     }
 
+    const offScreenRef = useRef();
+    const pageFormatStyle = {
+        position: "absolute",
+        top: "-10000px",
+        left: "-10000px",
+        width: "800px",
+    };
+    const titlepagePTR = <div id="printArea" ref={offScreenRef} >
+        <div className='pdfPreviewPage' style={pageFormatStyle}>
+            <SongbookTitlePage order={songOrder} />
+        </div>
+        {songOrder.map((songName, i) => (
+            <div className='pdfPreviewPage' style={pageFormatStyle}>
+                <PreviewPage 
+                previewTab={songbook[songName]}
+                pageNum={i + 1}
+                numPages={songOrder.length + 1}
+                />
+            </div>
+        ))}
+    </div> //TESTING PDF
     return(
         <div className="songbook">
+
+            {titlepagePTR} //TESTING PDF
+
             <div className="songbookHeader">
                 <h4> Your saved tabs: </h4>
                 <div>
                     <button onClick={togglePreviewDispatch}> {(previewPageNum === 0) ? 'Preview Book' : 'Close Preview'} </button>
-                    <button> Download PDF </button>
+                    <button onClick={pdfHandler}> Download PDF </button>
                 </div>
             </div>
             <br/>

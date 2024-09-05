@@ -23,8 +23,12 @@ Import:
 
 Songbook:
         --pdf creation and downloading with the other button
+            --move style to the stylesheet
+            --handle pdfs larger than a page
+
             --rework page numbers for this version?
             --links in table of contents?
+            --add the user's name?
 
     -the component PreviewPage.jsx now deals with rendering a tab as it will appear in the preview, pdf, and search results, except SongbookTitlePage.jsx, which renders the title page.
 

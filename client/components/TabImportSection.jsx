@@ -125,7 +125,7 @@ const TabImportSection = (props) => {
             </div>
         ) : null;
     const tabDisplay = (
-        <div>
+        <div className='tab'>
             {searchType && searchType.length && <div>
                 <div>
                     <input size='30' id='importSearch' placeholder={searchbarPlaceholder} onChange={handleURLchange}/>
@@ -147,20 +147,22 @@ const TabImportSection = (props) => {
     )
 
     return(
-        <div> 
-            <h4> Get a tab from online </h4>
-            <div id="searchMethodOptions">
-                <input type="radio" name="searchMethod" id="link"
-                    onClick={() => {changeSearchType('link')}}
-                /> 
-                <label htmlFor="link"> by its link </label>
-                <input type="radio" name="searchMethod" id="search"
-                    onClick={() => {changeSearchType('search')}}
-                />
-                <label htmlFor="search"> by searching the UG site </label>
+        <div className="tabImportContainer"> 
+            <div className="fixedHeader">
+                <h4> Get a tab from online </h4>
+                <div id="searchMethodOptions">
+                    <input type="radio" name="searchMethod" id="link"
+                        onClick={() => {changeSearchType('link')}}
+                    /> 
+                    <label htmlFor="link"> by its link </label>
+                    <input type="radio" name="searchMethod" id="search"
+                        onClick={() => {changeSearchType('search')}}
+                    />
+                    <label htmlFor="search"> by searching the UG site </label>
+                </div>
             </div>
             <br/> <br/>
-            <div className='tab'> 
+            <div className='scrollableContent'> 
                 {tabDisplay} 
             </div>
         </div>

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Maitree:wght@500&family=Proza+Libre:ital?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 $paleyellow: rgb(240, 238, 210);
+//monospace fonts used to ensure readability of guitar tabs
 
 body {
     background-color: lightgrey;
@@ -60,6 +61,7 @@ textarea {
 }
 
 .previewPage {
+    font-family: Roboto Mono, monospace;
     flex-grow: 1;
     margin: 0 auto;
     width: 80vw;
@@ -69,6 +71,13 @@ textarea {
     overflow-x: hidden;
     box-sizing: border-box;
 }
+
+// .pdfPreviewPage {
+//     position: "absolute";
+//     top: "-10000px";
+//     left: "-10000px";
+//     width: "800px";
+// }
 
 .previewPageButtons {
     display: flex;
@@ -122,8 +131,7 @@ textarea {
     font-family: Roboto Mono;
 }
 
-.tab, .previewPage {
-    //monospace fonts ensure readability of guitar tabs
+.tab {
     font-family: Roboto Mono, monospace;
 }
 
@@ -152,4 +160,22 @@ textarea {
         border: 1px solid black;
         width: 100%;
     }
+}
+
+
+.tabImportContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full height of the viewport */
+    overflow: hidden; /* Prevent overall page scroll */
+}
+
+.fixedHeader {
+    flex-shrink: 0; /* Ensure this section doesn't shrink */
+}
+
+.scrollableContent {
+    flex-grow: 1; /* Take up remaining space */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    padding: 10px; /* Optional padding for visual comfort */
 }
